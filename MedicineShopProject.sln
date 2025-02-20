@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicineShopAPI", "Medicine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelClasses", "ModelClasses\ModelClasses.csproj", "{7E7782FC-7774-4121-9803-F2AB378F165D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicinShopUI", "MedicinShopUI\MedicinShopUI.csproj", "{397883D4-FEFF-4160-91FC-D71B50277BE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7E7782FC-7774-4121-9803-F2AB378F165D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E7782FC-7774-4121-9803-F2AB378F165D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E7782FC-7774-4121-9803-F2AB378F165D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{397883D4-FEFF-4160-91FC-D71B50277BE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{397883D4-FEFF-4160-91FC-D71B50277BE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{397883D4-FEFF-4160-91FC-D71B50277BE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{397883D4-FEFF-4160-91FC-D71B50277BE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
