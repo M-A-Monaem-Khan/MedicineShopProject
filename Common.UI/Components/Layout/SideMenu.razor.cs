@@ -24,13 +24,12 @@ namespace Common.UI.Components.Layout
             BrandName = _config["BrandShortName"];
 
             UserInformationService userInfoService = new UserInformationService(_env);
-            var result = await ProtectedSessionStore.GetAsync<string>("userId");
-            _UserInformation = await userInfoService.getUserInfoByUserId(result.Value);
+            _UserInformation = await userInfoService.getUserInfoByUserId(await _sessionData.getSession());
             if (!string.IsNullOrEmpty(_UserInformation.imgName))
             {
-                userImg = "userInfo/Img/"+ _UserInformation.imgName;
+                userImg = "userInfo/Img/" + _UserInformation.imgName;
             }
-            if(_UserInformation.role == "Admin")
+            if (_UserInformation.role == "Admin")
             {
                 AdminFunctionList adminFunList = new AdminFunctionList(_env);
                 var adminList = await adminFunList.GetFunctionList();
@@ -67,7 +66,7 @@ namespace Common.UI.Components.Layout
 
         private async Task Logout()
         {
-            await ProtectedSessionStore.DeleteAsync("userId");
+            _sessionData.deleteSession();
             navigationManager.NavigateTo("/Login", forceLoad: true);
         }
     }

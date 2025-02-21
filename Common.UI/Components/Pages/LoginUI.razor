@@ -49,7 +49,7 @@
         await base.OnInitializedAsync();
         companyName = _config["CompanyName"];
         _userInformationService = new UserInformationService(_env);
-        await ProtectedSessionStore.DeleteAsync("userId");
+        _sessionData.deleteSession();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -81,7 +81,7 @@
 
         if (await _userInformationService.isLoginValid(loginModel.UserId,loginModel.Password))
         {
-            await ProtectedSessionStore.SetAsync("userId", loginModel.UserId);
+            _sessionData.setSession(loginModel.UserId);
             navigationManager.NavigateTo("/Home",forceLoad:true);
         }
         else

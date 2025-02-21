@@ -1,0 +1,75 @@
+﻿@using VaiVaiPharmacy.UI.Models
+<style type="text/css">
+
+    .tableIH {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        text-align: left;
+        font-family: Trebuchet MS;
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+        .tableIH td {
+            padding: 4px 17px;
+            text-align: left;
+            /*  border: 1px solid #ddd; */
+        }
+
+
+        .tableIH tr:nth-child(odd) {
+            background-color: rgb(1 183 195 / 10%);
+        }
+
+    .lebelTD {
+        width: 200px;
+        font: bold;
+        color: black;
+    }
+
+    .textTD {
+        width: 200px;
+    }
+
+    .tableIH .bg-green {
+        color: green;
+    }
+
+    .tableIH .bg-red {
+        color: red;
+    }
+
+    .tableIH .bg-yellow {
+        color: #ffab00;
+    }
+
+    .tableIH .bg-blue {
+        color: steelblue;
+    }
+</style>
+
+
+@((MarkupString)ShowInfo)
+
+@code {
+    private string ShowInfo = "";
+    [Parameter]
+    public List<GeneralData> DataList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string tempShowInfo = string.Empty;
+        tempShowInfo = "<table class='tableIH'><tbody class='table-border-bottom-0'>";
+        for (int i = 0; i < DataList.Count(); i = i + 1)
+        {
+            tempShowInfo = tempShowInfo + "<tr>";
+            tempShowInfo = tempShowInfo + $"<td colspan='2' class='lebelTD'>{DataList[i].text}:</td>"
+                                            + $"<td colspan='2' class='textTD' style='color:{DataList[i].color}'>" + DataList[i].value + "</td>";
+
+            tempShowInfo = tempShowInfo + "</tr>";
+        }
+        tempShowInfo = tempShowInfo + "</table>";
+        ShowInfo = tempShowInfo;
+    }
+}

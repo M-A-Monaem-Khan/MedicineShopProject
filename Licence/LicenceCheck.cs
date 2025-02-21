@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Licence
+﻿namespace Licence
 {
     public class LicenceCheck
     {
@@ -46,7 +40,7 @@ namespace Licence
         public bool isLicenceValid()
         {
             int x = (Convert.ToDateTime(LicenceCreateDate) - DateTime.UtcNow).Days;
-            if(x != 0)
+            if (x != 0)
             {
                 return true;
             }

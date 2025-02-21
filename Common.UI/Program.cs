@@ -1,11 +1,13 @@
 using Blazored.Toast;
 using Common.UI.Components;
 using Common.UI.Configuration;
+using Common.UI.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 
+builder.Services.AddScoped<sessionData>();
 
 //for Serversite render mode
 builder.Services.AddRazorComponents()

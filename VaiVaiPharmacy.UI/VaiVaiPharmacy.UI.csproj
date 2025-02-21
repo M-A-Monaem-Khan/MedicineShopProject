@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Debug\net8.0\libman.json" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Blazored.Toast" Version="4.2.1" />
+		<PackageReference Include="UXComponents" Version="1.0.2.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Licence\Licence.csproj" />
+	  <ProjectReference Include="..\ModelClasses\ModelClasses.csproj" />
+	</ItemGroup>
+
+</Project>

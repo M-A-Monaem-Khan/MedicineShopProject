@@ -1,0 +1,130 @@
+﻿@page "/Login"
+@layout EmptyLayout
+
+<PageTitle>Login</PageTitle>
+
+@using System.ComponentModel.DataAnnotations
+@using VaiVaiPharmacy.UI.Service
+@using Licence
+@using ModelClasses
+@using System.Text.Json
+
+<div class="login-container">
+    <div class="login-card">
+        <h2>Welcome To @companyName</h2>
+
+        <EditForm Model="@loginModel" OnValidSubmit="@HandleLogin">
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <div style="text-align:left; font-size:16px;">User ID<span style="color:red;">*</span></div>
+                <InputText @bind-Value="loginModel.UserId" class="form-control" placeholder="Enter User ID" />
+                <ValidationMessage For="@(() => loginModel.UserId)" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <div style="text-align:left; font-size:16px;">Password<span style="color:red;">*</span></div>
+                <InputText @bind-Value="loginModel.Password" Type="password" class="form-control" placeholder="Enter Password" />
+                <ValidationMessage For="@(() => loginModel.Password)" class="text-danger" />
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </EditForm>
+
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <p class="text-danger mt-2">@message</p>
+        }
+    </div>
+</div>
+
+@code {
+    private LoginModel loginModel = new LoginModel();
+    private string message = string.Empty;
+    private string companyName = "";
+    UserInformationService _userInformationService;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        companyName = _config["CompanyName"];
+        _userInformationService = new UserInformationService(_env);
+        _sessionData.deleteSession();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        LicenceCheck _licenceCheck = new LicenceCheck();
+        int remainDays = _licenceCheck.remainLicenceDate();
+        if (remainDays <= 0)
+        {
+            _toastService.ShowInfo("Licence Is Expired");
+            return;
+        }
+        string LicenceMsg = "Licence will be Expire within " + remainDays + " day(s)";
+        if (remainDays <= 15 && remainDays > 10)
+        {
+            _toastService.ShowInfo(LicenceMsg);
+        }
+        else if (remainDays <= 10 && remainDays > 5)
+        {
+            _toastService.ShowWarning(LicenceMsg);
+        }
+        else if (remainDays <= 5 && remainDays >= 1)
+        {
+            _toastService.ShowError(LicenceMsg);
+        }
+    }
+
+    private async Task HandleLogin()
+    {
+
+        if (await _userInformationService.isLoginValid(loginModel.UserId,loginModel.Password))
+        {
+            _sessionData.setSession(loginModel.UserId);
+            navigationManager.NavigateTo("/Home",forceLoad:true);
+        }
+        else
+        {
+            message = "Invalid credentials!";
+            loginModel = new LoginModel();
+        }
+    }
+
+    public class LoginModel
+    {
+        [Required(ErrorMessage = "User ID is required")]
+        public string UserId { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Password is required")]
+        public string Password { get; set; } = string.Empty;
+    }
+}
+
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f5f5f5;
+    }
+
+    .login-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        width: 500px;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn-block {
+        width: 100%;
+    }
+
+</style>

@@ -1,0 +1,10 @@
+[
+  {
+    "FunctionName": "Counter",
+    "RouteName": "/counter"
+  },
+  {
+    "FunctionName": "Weather",
+    "RouteName": "/weather"
+  }
+]
