@@ -22,14 +22,14 @@
     "phone": "01303271849",
     "address": "Rajshahi Bangladesh",
     "password": "1",
-    "imgName": "",
-    "role": "",
+    "imgName": "mona2.webp",
+    "role": "General",
     "id": 2,
     "recordUserId": "Admin",
     "recordDate": "21-Feb-2025",
-    "lastRecordModifyUser": null,
-    "lastModifyDate": null,
-    "status": "Push"
+    "lastRecordModifyUser": "mona",
+    "lastModifyDate": "21-Feb-2025",
+    "status": "EDT"
   },
   {
     "loginId": "tets",

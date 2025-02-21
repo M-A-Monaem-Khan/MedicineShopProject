@@ -129,4 +129,53 @@
 }
 
 
+.name-container {
+    display: inline-block;
+    position: relative;
+    font-size: 40px; /* Big font size */
+    margin:20px;
+    font-weight: bold;
+    color: #333; /* Default color */
+    cursor: pointer;
+    transition: transform 0.4s ease-in-out, font-size 0.4s ease-in-out;
+    font-family: 'Arial', sans-serif; /* Set custom font */
+    animation: colorChange 3s infinite alternate; /* Continuous color animation */
+}
+
+    .name-container:hover {
+        transform: translateY(-15px) scale(1.1); /* Move up and scale up */
+        color: #ff6347; /* Color change to Tomato */
+        font-size: 70px; /* Increase font size on hover */
+    }
+
+/* Animation for continuous color change */
+@keyframes colorChange {
+    0% {
+        color: #ff6347; /* Tomato */
+    }
+
+    25% {
+        color: #4caf50; /* Green */
+    }
+
+    50% {
+        color: #2196f3; /* Blue */
+    }
+
+    75% {
+        color: #ff9800; /* Orange */
+    }
+
+    100% {
+        color: #9c27b0; /* Purple */
+    }
+}
+
+/* Additional Styling for Text Shadow */
+.name-container {
+    text-shadow: 14px 7px 10px rgb(53 29 29 / 20%);
+}
+
+
+
 

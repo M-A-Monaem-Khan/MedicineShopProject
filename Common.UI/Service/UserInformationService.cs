@@ -73,7 +73,7 @@ namespace Common.UI.Service
                 var newList = new List<UserInformation>();
                 foreach (var user in _userList)
                 {
-                    if (_userInfo.loginId == user.loginId)
+                    if (_userInfo.id == user.id)
                     {
                         _userInfo.lastRecordModifyUser = userId;
                         _userInfo.lastModifyDate = DateTime.UtcNow.ToString("dd-MMM-yyyy");

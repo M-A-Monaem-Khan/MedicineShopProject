@@ -4,6 +4,9 @@
         <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
         <FocusOnNavigate RouteData="routeData" Selector="h1" />
     </Found>
+    <NotFound>
+        <NotFound></NotFound>
+    </NotFound>
 </Router>
 
 
@@ -11,14 +14,11 @@
 @code{
     protected override async Task OnInitializedAsync()
     {
-        await ProtectedSessionStore.SetAsync("userId", "mona");
-        var result = await ProtectedSessionStore.GetAsync<string>("userId");
-        if (!result.Success)
+        await _sessionData.setSession("mona");
+        var result = await _sessionData.getSession();
+        if (string.IsNullOrEmpty(result))
         {
             navigationManager.NavigateTo("/Login");
-        }
-        else{
-             navigationManager.NavigateTo("/Home");
         }
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)

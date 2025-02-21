@@ -21,19 +21,17 @@
     }
 
     [Parameter] public string btnSaveText { get; set; } = "Save";
-    [Parameter] public bool ShowButtonAdd { get; set; } = true;
-    [Parameter] public bool ShowButtonView { get; set; } = true;
-    [Parameter] public bool ShowButtonDelete { get; set; } = true;
-    [Parameter] public bool ShowButtonRefresh { get; set; } = true;
-    [Parameter] public bool ShowButtonExit { get; set; } = true;
+    [Parameter] public bool ShowButtonAdd { get; set; } = false;
+    [Parameter] public bool ShowButtonView { get; set; } = false;
+    [Parameter] public bool ShowButtonDelete { get; set; } = false;
+    [Parameter] public bool ShowButtonRefresh { get; set; } = false;
+    [Parameter] public bool ShowButtonExit { get; set; } = false;
 
 
     // Define event handlers for each button
     [Parameter] public EventCallback OnFHBtnAddClick { get; set; }
     [Parameter] public EventCallback OnFHBtnViewClick { get; set; }
     [Parameter] public EventCallback OnFHBtnDeleteClick { get; set; }
-    [Parameter] public EventCallback OnFHBtnRefreshClick { get; set; }
-    [Parameter] public EventCallback OnFHBtnExitClick { get; set; }
 
     //Activity Log Data section
 
@@ -49,18 +47,18 @@
     {
         await OnFHBtnDeleteClick.InvokeAsync();
     }
-    private async Task HandleBtnRefreshClick()
+    private void HandleBtnRefreshClick()
     {
-        await OnFHBtnRefreshClick.InvokeAsync();
+        navigationManager.Refresh();
     }
-    private async Task HandleBtnExitClick()
+    private void HandleBtnExitClick()
     {
-        await OnFHBtnExitClick.InvokeAsync();
+        navigationManager.NavigateTo("/Home");
     }
 
     private async Task NavigetTOHome()
     {
-        navigationManager.NavigateTo("Home");
+        navigationManager.NavigateTo("/Home");
     }
 }
 
