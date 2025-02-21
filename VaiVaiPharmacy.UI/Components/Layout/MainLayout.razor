@@ -1,0 +1,50 @@
+﻿@using Blazored.Toast.Configuration
+@using VaiVaiPharmacy.UI.Components.Pages
+@using System.Text.Json
+
+@inherits LayoutComponentBase
+@using Blazored.Toast
+        <div class="home-section ms-2">
+            @Body
+        </div>
+        <SideMenu />
+
+<BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="8"
+                IconType="IconType.FontAwesome"
+                ErrorIcon="fa-solid fa-circle-exclamation"
+                InfoIcon="fa-solid fa-circle-info"
+                SuccessIcon="fa-solid fa-circle-check"
+                WarningIcon="fa-solid fa-triangle-exclamation"
+                ShowProgressBar="true"
+                ShowCloseButton="true"
+                MaxToastCount="5"
+                RemoveToastsOnNavigation="true">
+    <CloseButtonContent>
+        <div>
+            <button class="ToastCloseBtn">&times;</button>
+        </div>
+    </CloseButtonContent>
+</BlazoredToasts>
+
+
+
+
+<style>
+    .ToastCloseBtn {
+        background-color: transparent;
+        border: 2px solid #cf2113;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #db5110;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+</style>

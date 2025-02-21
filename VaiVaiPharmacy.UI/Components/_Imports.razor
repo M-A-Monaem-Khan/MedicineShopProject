@@ -1,0 +1,23 @@
+﻿@using System.Net.Http
+@using System.Net.Http.Json
+@using VaiVaiPharmacy.UI.Models
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using static Microsoft.AspNetCore.Components.Web.RenderMode
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.JSInterop
+@using VaiVaiPharmacy.UI
+@using VaiVaiPharmacy.UI.Components
+@using VaiVaiPharmacy.UI.Components.Layout
+@using UXComponents
+@using Blazored.Toast
+@using Blazored.Toast.Services
+
+@inject NavigationManager navigationManager
+@inject IJSRuntime _jsruntime
+@inject IConfiguration _config
+@inject IToastService _toastService
+@inject IWebHostEnvironment _env
+
+@inject sessionData _sessionData

@@ -1,0 +1,25 @@
+﻿@page "/Home"
+@layout Layout.MainLayout
+@using System.Text.Json
+@using Licence
+
+
+
+<NavMenu ShowButtonAdd="false" ShowButtonView="false" ShowButtonDelete="false" ShowButtonRefresh="false" ShowButtonExit="false" />
+<div style="display: flex; justify-content: center; align-items: center; height: 90vh; margin: 0;">
+    <div>
+        @foreach (var letter in CompanyName.Split(" "))
+        {
+            <span class="name-container" style="border:none;">@letter</span>
+        }
+    </div>
+</div>
+
+@code {
+    private string CompanyName = "M.A. Monaem Khan";
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        CompanyName = _config["CompanyName"];
+    }
+}

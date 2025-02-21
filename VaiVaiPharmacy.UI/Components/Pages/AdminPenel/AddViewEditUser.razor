@@ -1,0 +1,280 @@
+﻿@page "/userDetails"
+@using VaiVaiPharmacy.UI.Components.Pages.User_Pages
+@using VaiVaiPharmacy.UI.Service
+@using ModelClasses
+@using System.Text.Json
+
+<PageTitle>User Details</PageTitle>
+<NavMenu btnSaveText="@btnSavetxt" ShowButtonAdd="true" OnFHBtnAddClick="saveBtnClick" />
+
+<div class="row">
+    <div class="col-12">
+        <h5 class="GridTitlebar">@title Information</h5>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <form id="userValidation" onsubmit="return false;" class="needs-validation" novalidate>
+                        <div class="col-12 row g-3">
+                            <div class="col-10 row">
+                                <div>
+                                    <div class="col-2 form-group">
+                                        <UXC_Number Id="userId"
+                                        Enable="false"
+                                        LabelText="Id"
+                                        @bind-Value="_UserInformation.id"></UXC_Number>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-4 form-group">
+                                        <UXC_TextBox Id="userName"
+                                        Enable="true"
+                                        Required="true"
+                                        LabelText="Name"
+                                        @bind-Value="_UserInformation.name"></UXC_TextBox>
+                                    </div>
+                                    <div class="col-4 form-group">
+                                        <UXC_TextBox Id="useruserId"
+                                        Enable="true"
+                                        Required="true"
+                                        LabelText="User Id"
+                                        @bind-Value="_UserInformation.loginId"></UXC_TextBox>
+                                    </div>
+                                    <div class="col-4 form-group">
+                                        <UXC_DropDown Id="roleDrop"
+                                        Enable="true"
+                                        Required="true"
+                                        DataSource="roleList"
+                                        Placeholder="-- Select Role --"
+                                        @bind-Value="@_UserInformation.role"
+                                        @key="@roleKey"></UXC_DropDown>
+                                    </div>
+                                    <div class="col-4 form-group">
+                                        <UXC_TextBox Id="userPhone"
+                                        Enable="true"
+                                        Required="true"
+                                        LabelText="Phone"
+                                        @bind-Value="_UserInformation.phone"></UXC_TextBox>
+                                    </div>
+                                    <div class="col-4 form-group">
+                                        <UXC_Password Id="userpass"
+                                        Enable="true"
+                                        Required="true"
+                                        LabelText="Password"
+                                        @bind-Value="_UserInformation.password"></UXC_Password>
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        <UXC_TxtArea Id="userDec"
+                                        Enable="true"
+                                        LabelText="Description"
+                                        @bind-Value="_UserInformation.description"></UXC_TxtArea>
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        <UXC_TxtArea Id="userName"
+                                        Enable="true"
+                                        Required="true"
+                                        LabelText="Address"
+                                        @bind-Value="_UserInformation.address"></UXC_TxtArea>
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="col-2">
+                                <div style="text-align:center; margin-bottom:5px; border-radius:10px;">
+                                    <img src="@imagePreview" height="150" width="120" style="border-radius:10px;" />
+                                </div>
+                                <InputFile @key="imgKey" OnChange="UploadImage" accept="image/*" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h5 class="GridTitlebar">User Information</h5>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <div class="col-12">
+                        <UXC_DataGrid Id="userdatagrid"
+                        DataSource="_userGridList"
+                        ShowEditButton="true"
+                        ShowDeleteButton="true"
+                        ShowViewButton="true"
+                        OnFHViewClick="viewBtnClick"
+                        OnFHDeleteClick="deleteBtnClick"
+                        OnFHEditClick="editBtnClick"
+                        CustomColumnNames="customeColumn"
+                        SelectedColumns="selectColumn"
+                        @key="@_userListKey"></UXC_DataGrid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (isUserModalShow)
+{
+    <UXC_Modal ModalTitle="User Basic Information" IsVisible="isUserModalShow" IsVisibleChanged="()=>{isUserModalShow = false;}">
+        <BodyContent>
+            <UserInfoViewModal _userInfo="@_UserInformation"></UserInfoViewModal>
+        </BodyContent>
+    </UXC_Modal>
+}
+
+@code {
+    private string btnSavetxt = "Save";
+    private IBrowserFile uploadImg;
+    private string imagePreview = "img/avatars/user.png";
+    private byte[] uploadedImageData;
+    private string imgKey = Guid.NewGuid().ToString();
+
+    private bool isUserModalShow = false;
+    public string title = "Add";
+    private List<UserInformation> _userList = new List<UserInformation>();
+    private List<UserInformation> _userGridList = new List<UserInformation>();
+    private string _userListKey = Guid.NewGuid().ToString();
+    private UserInformationService _userInfoService;
+    private Dictionary<string, string> customeColumn = new Dictionary<string, string>(){
+        {"name","Name" },
+        {"phone","Phone" },
+        {"address","Address" },
+        {"role","Role" },
+    };
+    private List<string> selectColumn = new List<string>()
+    {
+        {"name"},
+        {"phone"},
+        {"address"},
+        {"role"},
+    };
+
+    private UserInformation _UserInformation = new UserInformation();
+    private List<Dropdown> roleList = new List<Dropdown>(){
+        new Dropdown{
+            text = "Admin",
+            value = "Admin"
+        },new Dropdown{
+            text = "General",
+            value = "General"
+        }
+    };
+    private string roleKey = Guid.NewGuid().ToString();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _userInfoService = new UserInformationService(_env);
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+
+        _userList = await _userInfoService.getAllUser();
+        _userGridList = new List<UserInformation>();
+        foreach (var item in _userList)
+        {
+            if (item.status != "DEL")
+            {
+                _userGridList.Add(item);
+            }
+        }
+        _userListKey = Guid.NewGuid().ToString();
+    }
+
+    private void viewBtnClick(string result)
+    {
+        _UserInformation = JsonSerializer.Deserialize<UserInformation>(result) ?? new UserInformation();
+        isUserModalShow = true;
+    }
+
+    private async void editBtnClick(string value)
+    {
+        _UserInformation = JsonSerializer.Deserialize<UserInformation>(value) ?? new UserInformation();
+        if (string.IsNullOrEmpty(_UserInformation.imgName))
+            imagePreview = "img/avatars/user.png";
+        else
+            imagePreview = "userInfo/Img/" + _UserInformation.imgName;
+        btnSavetxt = "Update";
+        title = "Update " + _UserInformation.name;
+    }
+
+    private async void deleteBtnClick(string value)
+    {
+        var obj = JsonSerializer.Deserialize<UserInformation>(value) ?? new UserInformation();
+        var delObj = await _userInfoService.saveOrUpdateOrDeleteUser(obj, await _sessionData.getSession(), true);
+        _toastService.ShowSuccess(delObj.name + " information Delete Sucessfully");
+        await LoadData();
+    }
+
+    private async Task UploadImage(InputFileChangeEventArgs e)
+    {
+        string fileName;
+        uploadImg = e.File;
+        if (uploadImg != null)
+        {
+            fileName = uploadImg.Name;
+            using var stream = new MemoryStream();
+            await uploadImg.OpenReadStream().CopyToAsync(stream);
+            uploadedImageData = stream.ToArray();
+
+            imagePreview = $"data:{uploadImg.ContentType};base64,{Convert.ToBase64String(uploadedImageData)}";
+            imgKey = Guid.NewGuid().ToString();
+        }
+    }
+
+    private async Task saveBtnClick()
+    {
+        bool Validation = await _jsruntime.InvokeAsync<bool>("globalFunctions.validateFormById", "userValidation");
+        if (Validation == false)
+        {
+            return;
+        }
+        await SaveImage();
+        try{
+            string msg = _UserInformation.loginId;
+            if(_UserInformation.id == 0){
+                msg = msg + " User Added Succesfully";
+            }else{
+                msg = msg + " User Update Succesfully";
+            }
+            var re = await _userInfoService.saveOrUpdateOrDeleteUser(_UserInformation,await _sessionData.getSession());
+            _toastService.ShowSuccess(msg);
+            await ClearFields();
+
+        }catch(Exception ex){
+
+        }
+    }
+    private async Task ClearFields()
+    {
+        _UserInformation = new UserInformation();
+        btnSavetxt = "Save";
+        roleKey = Guid.NewGuid().ToString();
+        await LoadData();
+        imagePreview = "img/avatars/user.png";
+        uploadImg = null;
+        uploadedImageData = null;
+    }
+    private async Task SaveImage()
+    {
+        if (uploadedImageData != null)
+        {
+            string folderPath = Path.Combine(_env.WebRootPath, "userInfo/Img");
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+            var extention = uploadImg.Name.Split(".");
+            _UserInformation.imgName = _UserInformation.loginId +"."+ extention[extention.Length-1];
+            string filePath = Path.Combine(folderPath, _UserInformation.imgName);
+
+            // Save the file (overwrite if exists)
+            await File.WriteAllBytesAsync(filePath, uploadedImageData);
+        }
+    }
+
+}
