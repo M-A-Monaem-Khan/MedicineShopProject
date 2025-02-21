@@ -5,7 +5,10 @@
 @using System.Text.Json
 
 <PageTitle>User Details</PageTitle>
-<NavMenu btnSaveText="@btnSavetxt" ShowButtonAdd="true" OnFHBtnAddClick="saveBtnClick" />
+<NavMenu PageName="User Details"
+         btnSaveText="@btnSavetxt" ShowButtonAdd="true" OnFHBtnAddClick="saveBtnClick"
+         ShowButtonRefresh="true" OnFHBtnRefreshClick="refreshBtnClick"
+         ShowButtonExit ="true"/>
 
 <div class="row">
     <div class="col-12">
@@ -19,63 +22,63 @@
                                 <div>
                                     <div class="col-2 form-group">
                                         <UXC_Number Id="userId"
-                                        Enable="false"
-                                        LabelText="Id"
-                                        @bind-Value="_UserInformation.id"></UXC_Number>
+                                                    Enable="false"
+                                                    LabelText="Id"
+                                                    @bind-Value="_UserInformation.id"></UXC_Number>
                                     </div>
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-4 form-group">
                                         <UXC_TextBox Id="userName"
-                                        Enable="true"
-                                        Required="true"
-                                        LabelText="Name"
-                                        @bind-Value="_UserInformation.name"></UXC_TextBox>
+                                                     Enable="true"
+                                                     Required="true"
+                                                     LabelText="Name"
+                                                     @bind-Value="_UserInformation.name"></UXC_TextBox>
                                     </div>
                                     <div class="col-4 form-group">
                                         <UXC_TextBox Id="useruserId"
-                                        Enable="true"
-                                        Required="true"
-                                        LabelText="User Id"
-                                        @bind-Value="_UserInformation.loginId"></UXC_TextBox>
+                                                     Enable="true"
+                                                     Required="true"
+                                                     LabelText="User Id"
+                                                     @bind-Value="_UserInformation.loginId"></UXC_TextBox>
                                     </div>
                                     <div class="col-4 form-group">
                                         <UXC_DropDown Id="roleDrop"
-                                        Enable="true"
-                                        Required="true"
-                                        DataSource="roleList"
-                                        Placeholder="-- Select Role --"
-                                        @bind-Value="@_UserInformation.role"
-                                        @key="@roleKey"></UXC_DropDown>
+                                                      Enable="true"
+                                                      Required="true"
+                                                      DataSource="roleList"
+                                                      Placeholder="-- Select Role --"
+                                                      @bind-Value="@_UserInformation.role"
+                                                      @key="@roleKey"></UXC_DropDown>
                                     </div>
                                     <div class="col-4 form-group">
                                         <UXC_TextBox Id="userPhone"
-                                        Enable="true"
-                                        Required="true"
-                                        LabelText="Phone"
-                                        @bind-Value="_UserInformation.phone"></UXC_TextBox>
+                                                     Enable="true"
+                                                     Required="true"
+                                                     LabelText="Phone"
+                                                     @bind-Value="_UserInformation.phone"></UXC_TextBox>
                                     </div>
                                     <div class="col-4 form-group">
                                         <UXC_Password Id="userpass"
-                                        Enable="true"
-                                        Required="true"
-                                        LabelText="Password"
-                                        @bind-Value="_UserInformation.password"></UXC_Password>
+                                                      Enable="true"
+                                                      Required="true"
+                                                      LabelText="Password"
+                                                      @bind-Value="_UserInformation.password"></UXC_Password>
                                     </div>
                                     <div class="col-6 form-group">
                                         <UXC_TxtArea Id="userDec"
-                                        Enable="true"
-                                        LabelText="Description"
-                                        @bind-Value="_UserInformation.description"></UXC_TxtArea>
+                                                     Enable="true"
+                                                     LabelText="Description"
+                                                     @bind-Value="_UserInformation.description"></UXC_TxtArea>
                                     </div>
                                     <div class="col-6 form-group">
                                         <UXC_TxtArea Id="userName"
-                                        Enable="true"
-                                        Required="true"
-                                        LabelText="Address"
-                                        @bind-Value="_UserInformation.address"></UXC_TxtArea>
+                                                     Enable="true"
+                                                     Required="true"
+                                                     LabelText="Address"
+                                                     @bind-Value="_UserInformation.address"></UXC_TxtArea>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="col-2">
                                 <div style="text-align:center; margin-bottom:5px; border-radius:10px;">
@@ -99,16 +102,16 @@
                 <div class="content">
                     <div class="col-12">
                         <UXC_DataGrid Id="userdatagrid"
-                        DataSource="_userGridList"
-                        ShowEditButton="true"
-                        ShowDeleteButton="true"
-                        ShowViewButton="true"
-                        OnFHViewClick="viewBtnClick"
-                        OnFHDeleteClick="deleteBtnClick"
-                        OnFHEditClick="editBtnClick"
-                        CustomColumnNames="customeColumn"
-                        SelectedColumns="selectColumn"
-                        @key="@_userListKey"></UXC_DataGrid>
+                                      DataSource="_userGridList"
+                                      ShowEditButton="true"
+                                      ShowDeleteButton="true"
+                                      ShowViewButton="true"
+                                      OnFHViewClick="viewBtnClick"
+                                      OnFHDeleteClick="deleteBtnClick"
+                                      OnFHEditClick="editBtnClick"
+                                      CustomColumnNames="customeColumn"
+                                      SelectedColumns="selectColumn"
+                                      @key="@_userListKey"></UXC_DataGrid>
                     </div>
                 </div>
             </div>
@@ -168,6 +171,11 @@
     {
         _userInfoService = new UserInformationService(_env);
         await LoadData();
+    }
+
+    private async Task refreshBtnClick()
+    {
+        await ClearFields();
     }
 
     private async Task LoadData()
@@ -234,18 +242,24 @@
             return;
         }
         await SaveImage();
-        try{
+        try
+        {
             string msg = _UserInformation.loginId;
-            if(_UserInformation.id == 0){
+            if (_UserInformation.id == 0)
+            {
                 msg = msg + " User Added Succesfully";
-            }else{
+            }
+            else
+            {
                 msg = msg + " User Update Succesfully";
             }
-            var re = await _userInfoService.saveOrUpdateOrDeleteUser(_UserInformation,await _sessionData.getSession());
+            var re = await _userInfoService.saveOrUpdateOrDeleteUser(_UserInformation, await _sessionData.getSession());
             _toastService.ShowSuccess(msg);
             await ClearFields();
 
-        }catch(Exception ex){
+        }
+        catch (Exception ex)
+        {
 
         }
     }
@@ -269,7 +283,7 @@
                 Directory.CreateDirectory(folderPath);
             }
             var extention = uploadImg.Name.Split(".");
-            _UserInformation.imgName = _UserInformation.loginId +"."+ extention[extention.Length-1];
+            _UserInformation.imgName = _UserInformation.loginId + "." + extention[extention.Length - 1];
             string filePath = Path.Combine(folderPath, _UserInformation.imgName);
 
             // Save the file (overwrite if exists)

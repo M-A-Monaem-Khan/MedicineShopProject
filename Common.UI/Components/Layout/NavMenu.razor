@@ -11,7 +11,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        ApplicationId = Convert.ToInt32(_config["ApplicationId"]);
         AppName = _config["AppName"];
 
         if (string.IsNullOrEmpty(AppName))
@@ -32,6 +31,7 @@
     [Parameter] public EventCallback OnFHBtnAddClick { get; set; }
     [Parameter] public EventCallback OnFHBtnViewClick { get; set; }
     [Parameter] public EventCallback OnFHBtnDeleteClick { get; set; }
+    [Parameter] public EventCallback OnFHBtnRefreshClick { get; set; }
 
     //Activity Log Data section
 
@@ -47,9 +47,9 @@
     {
         await OnFHBtnDeleteClick.InvokeAsync();
     }
-    private void HandleBtnRefreshClick()
+    private async Task HandleBtnRefreshClick()
     {
-        navigationManager.Refresh();
+        await OnFHBtnRefreshClick.InvokeAsync();
     }
     private void HandleBtnExitClick()
     {
@@ -70,7 +70,7 @@
         </a> *@
         <span @onclick="NavigetTOHome">
             <div class="logotext">
-                <img src=@($"img/app_logo/{ApplicationId}.png") alt="@AppName Logo" class="app-logo" />
+                <img src=@($"img/app_logo/logo2.png") alt="@AppName Logo" class="app-logo" />
 
                 <span class="app_title col-md-2 col-lg-4 col-xl-4">
                     <p class="appName">@AppName</p>
