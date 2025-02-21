@@ -1,3 +1,4 @@
+using Licence;
 using Microsoft.AspNetCore.Mvc;
 using ModelClasses;
 using System.Text;
@@ -145,6 +146,41 @@ namespace MedicineShopAPI.Controllers
             string errorResponse = await updateResponse.Content.ReadAsStringAsync();
             return StatusCode((int)updateResponse.StatusCode, $"Failed to update Gist: {errorResponse}");
         }
+
+        [HttpGet("GetLicenceCheck")]
+        public async Task<IActionResult> LicenceChecking()
+        {
+            LicenceCheck licenceCheck = new LicenceCheck();
+
+            return Ok(licenceCheck.isLicenceExpire());
+        }
+        [HttpGet("GetLicenceRemainingDate")]
+        public async Task<IActionResult> LicenceRemainingDate()
+        {
+            LicenceCheck licenceCheck = new LicenceCheck();
+
+            return Ok(licenceCheck.remainLicenceDate());
+        }
+        [HttpPost("uploadImage")]
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("No file uploaded.");
+            }
+
+            using (var memoryStream = new MemoryStream())
+            {
+                await file.CopyToAsync(memoryStream);
+                byte[] imageBytes = memoryStream.ToArray();
+
+                // Optionally save the image to a file, database, or whatever else you need.
+                // For now, we will just return the byte array.
+
+                return Ok(Convert.ToBase64String( imageBytes));  // Return image bytes to the client
+            }
+        }
+
 
     }
 }

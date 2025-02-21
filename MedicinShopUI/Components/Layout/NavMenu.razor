@@ -1,30 +1,120 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">MedicinShopUI</a>
+﻿@rendermode @(new InteractiveServerRenderMode(prerender:false))
+@using System.Text.Json
+
+
+@code {
+    [Parameter]
+    public string PageName { get; set; } = "Home";
+    [Parameter] public int ApplicationId { get; set; }
+    [Parameter] public string AppName { get; set; }
+    public string vFunctionId { get; set; }
+    public string vQuickRouteNo { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ApplicationId = Convert.ToInt32(_config["ApplicationId"]);
+        AppName = _config["AppName"];
+
+        if (string.IsNullOrEmpty(AppName))
+        {
+            AppName = "IronFort";
+        }
+    }
+
+    [Parameter] public string btnSaveText { get; set; } = "Save";
+    [Parameter] public bool ShowButtonAdd { get; set; } = true;
+    [Parameter] public bool ShowButtonView { get; set; } = true;
+    [Parameter] public bool ShowButtonDelete { get; set; } = true;
+    [Parameter] public bool ShowButtonRefresh { get; set; } = true;
+    [Parameter] public bool ShowButtonExit { get; set; } = true;
+
+
+    // Define event handlers for each button
+    [Parameter] public EventCallback OnFHBtnAddClick { get; set; }
+    [Parameter] public EventCallback OnFHBtnViewClick { get; set; }
+    [Parameter] public EventCallback OnFHBtnDeleteClick { get; set; }
+    [Parameter] public EventCallback OnFHBtnRefreshClick { get; set; }
+    [Parameter] public EventCallback OnFHBtnExitClick { get; set; }
+
+    //Activity Log Data section
+
+    private async Task HandleBtnAddClick()
+    {
+        await OnFHBtnAddClick.InvokeAsync();
+    }
+    private async Task HandleBtnViewClick()
+    {
+        await OnFHBtnViewClick.InvokeAsync();
+    }
+    private async Task HandleBtnDeleteClick()
+    {
+        await OnFHBtnDeleteClick.InvokeAsync();
+    }
+    private async Task HandleBtnRefreshClick()
+    {
+        await OnFHBtnRefreshClick.InvokeAsync();
+    }
+    private async Task HandleBtnExitClick()
+    {
+        await OnFHBtnExitClick.InvokeAsync();
+    }
+
+    private async Task NavigetTOHome()
+    {
+        navigationManager.NavigateTo("Home");
+    }
+}
+
+
+<nav class="layout-navbar container-xxl navbar navbar-expand-xl align-items-center bg-navbar-theme">
+    <div class="logo_item col-3 col-md-2 col-lg-2 col-xl-2">
+        @* <a href="index.html" class="app-brand-link" style="color: #2245b1">
+        <span class="app-brand-text demo menu-text fw-bold"> <span style="color: #199ac3">F</span>INTECH<span style="color: white; background-color: #199ac3">H</span>UB</span>
+        </a> *@
+        <span @onclick="NavigetTOHome">
+        <div class="logotext" >
+                <img src=@($"img/app_logo/{ApplicationId}.png") alt="@AppName Logo" class="app-logo" />
+
+                <span class="app_title col-md-2 col-lg-4 col-xl-4">
+                    <p class="appName">@AppName</p>
+                </span>
+        </div>
+        </span>
+
     </div>
-</div>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+    <div class="page_title col-md-2 col-lg-4 col-xl-4">
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
+        <p>@PageName</p>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
+    </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
-    </nav>
-</div>
+    <div class="button_bar col-9 col-md-8 col-lg-6 col-xl-6">
+        @if (ShowButtonAdd)
+        {
+            <button class="btn btn-save " type="submit" @onclick="HandleBtnAddClick"> @btnSaveText<i class="bx bx-save bx-sm me-sm-n2"></i></button>
+        }
+        @if (ShowButtonView)
+        {
+            <button class="btn btn-view " @onclick="HandleBtnViewClick">View<i class="bx bx-show-alt bx-sm me-sm-n2"></i></button>
+        }
+
+        @if (ShowButtonDelete)
+        {
+            <button class="btn btn-danger " @onclick="HandleBtnDeleteClick">Delete<i class="bx bx-trash bx-sm me-sm-n2"></i></button>
+        }
+
+        @if (ShowButtonRefresh)
+        {
+            <button class="btn btn-warning " @onclick="HandleBtnRefreshClick">Refresh<i class="bx bx-refresh bx-sm me-sm-n2"></i></button>
+        }
+        @if (ShowButtonExit)
+        {
+            <button class="btn btn-dark " @onclick="HandleBtnExitClick">Exit<i class="bx bx-exit bx-sm me-sm-n2"></i></button>
+        }
+    </div>
+
+</nav>
+
+
 

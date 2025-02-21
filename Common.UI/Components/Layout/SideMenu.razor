@@ -1,0 +1,348 @@
+﻿@using System.Text.Json
+@using System.Reflection
+@rendermode @(new InteractiveServerRenderMode(prerender:false))
+
+
+<nav class="sidebar">
+    <div class="menu_content">
+        @* <form @onsubmit="()=>RouteChange(inputPageNum)">
+            <ul style="padding-left:0px; margin-bottom:0">
+                <li>
+                    <InputText @bind-Value="inputPageNum"
+                               maxlength="5"
+                               autocomplete="off"
+                               placeholder="Quick Route.."
+                               @onblur="()=>RouteChange(inputPageNum)"
+                               style="text-align: center;" />
+                    <span class="qrSearch"><i class="bx bx-fast-forward-circle" style="font-size:20px"></i></span>
+                </li>
+            </ul>
+        </form> *@
+        @* <img style="width:60px;margin-left:25px" src="img/logofinetech-hub.png" /> *@
+        <ul class="menu_items menu_section">
+            <li class="item">
+
+                <span data-bs-toggle="tooltip"
+                      data-bs-placement="right"
+                      title="App Menu"
+                      data-bs-custom-class="tooltip-dark"
+                      class="lnkPageSearch nav_link nav-link">
+                    <span class="navlink_icon">
+                        <i class='bx bx-menu'></i>
+                    </span>
+                </span>
+
+                <div class="searchPages">
+                    <div class="search-container">
+
+                        <div class="searchbox">
+                            <svg aria-hidden="true" viewBox="0 0 24 24">
+                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                            </svg>
+                            <input class="menu-search-input" aria-label="Search for a Quick Route"
+                                   autocomplete="off"
+                                   inputmode="search"
+                                   placeholder="Enter Quick Route or Page Title"
+                                   type="search" />
+                        </div>
+
+                        <div class="nav-align-top">
+                            <ul class="nav nav-tabs nav-fill" role="tablist" style="margin: 0 20px">
+                                <li class="nav-item" role="presentation">
+                                    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-menu-all" aria-controls="navs-menu-all" aria-selected="true"><span class="d-none d-sm-block"><i class='bx bx-menu'></i>Functions</span></button>
+                                </li>
+                                @* <li class="nav-item" role="presentation">
+                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-menu-recent" aria-controls="navs-menu-recent" aria-selected="false" tabindex="-1"><span class="d-none d-sm-block"><i class="bx bx-filter"></i> Recent</span></button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-menu-favourite" aria-controls="navs-menu-favourite" aria-selected="false" tabindex="-1"><span class="d-none d-sm-block"><i class="bx bx bx-heart"></i> Favourites</span></button>
+                                </li> *@
+                            </ul>
+                            <div class="tab-content tab-content-menu">
+                                <div class="tab-pane fade active show" id="navs-menu-all" role="tabpanel">
+                                    <div class="sidebar-body">
+                                        <!-- Function List -->
+                                        <ul class="list-unstyled py-2 mb-0" id="generalBanking">
+                                            @if (ModuleWiseItem != null)
+                                            {
+                                                @foreach (var itemkey in ModuleWiseItem)
+                                                {
+                                                    <li class="module-title gb-module-title">
+                                                        @if (string.IsNullOrEmpty(itemkey.Key))
+                                                        {
+                                                            <h5 class="search-module mb-0" id="moduleNm">Module Name Not Found</h5>
+                                                        }
+                                                        <h5 class="search-module mb-0" id="moduleNm">@itemkey.Key</h5>
+                                                    </li>
+                                                    @* @foreach (var pageNo in itemkey)
+                                                    {
+                                                        <li style="display: flex; gap: 10px; align-items: center;">
+
+                                                            <!-- Custom Toggle Button -->
+                                                            <button class="heart-button" @onclick="() => ToggleFunctionsFav(pageNo)">
+                                                                <i class="bx @(userFavouriteFunctions.Any(f => f.functionId == pageNo.FunctionId) || (toggleStates.ContainsKey(pageNo.FunctionId) && toggleStates[pageNo.FunctionId]) ? "bxs-heart" : "bx-heart")"></i>
+                                                            </button>
+
+                                                            <!-- Navigation Button -->
+                                                            <button class="btn btn-link" @onclick="()=>RouteChange(pageNo.QuickRouteNo)">
+                                                                <span> @pageNo.QuickRouteNo: @pageNo.FunctionName</span>
+                                                            </button>
+                                                        </li>
+                                                    } *@
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                @* <div class="tab-pane fade" id="navs-menu-recent" role="tabpanel" @onclick="openRecentitem">
+                                    <div class="sidebar-body">
+                                        <!-- Recent list -->
+                                        <ul class="list-unstyled py-2 mb-0" id="generalBanking">
+
+                                            @if (userRecentFuncitions != null)
+                                            {
+                                                @if (userRecentFuncitions.Count > 0)
+                                                {
+                                                    @foreach (var pageNo in userRecentFuncitions)
+                                                    {
+                                                        <li>
+                                                            <button class="btn btn-link" @onclick="()=>RouteChange(pageNo.quickRouteNo)">
+                                                                <span> @pageNo.quickRouteNo: @pageNo.functionNm</span>
+                                                            </button>
+                                                        </li>
+                                                    }
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="navs-menu-favourite" role="tabpanel">
+                                    <div class="sidebar-body">
+                                        <!-- Favourites -->
+                                        <ul class="list-unstyled py-2 mb-0" id="generalBanking">
+
+                                            @if (userFavouriteFunctions != null)
+                                            {
+                                                @if (userFavouriteFunctions.Count > 0)
+                                                {
+                                                    @foreach (var funct in userFavouriteFunctions)
+                                                    {
+                                                        <li style="display: flex; gap: 10px; align-items: center;">
+
+                                                            <!-- Custom Toggle Button -->
+                                                            <button class="heart-button" @onclick="() => ToggleFavorite(funct)">
+                                                                <i class="bx bxs-heart"></i>
+                                                            </button>
+
+                                                            <!-- Navigation Button -->
+                                                            <button class="btn btn-link" @onclick="()=>RouteChange(funct.quickRouteNo)">
+                                                                <span> @funct.quickRouteNo: @funct.functionNm</span>
+                                                            </button>
+                                                        </li>
+                                                    }
+                                                }
+                                            }
+                                        </ul>
+
+
+
+                                    </div>
+                                </div> *@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+
+            <li class="item dropdown-shortcuts navbar-dropdown">
+                @* landing-page *@
+
+                <span data-bs-toggle="tooltip"
+                      data-bs-offset="0,8"
+                      data-bs-placement="right"
+                      title="Switch Application"
+                      data-bs-custom-class="tooltip-dark"
+                      class="lnkModule nav_link nav-link">
+                    <span class="navlink_icon">
+                        <i class="bx bx-grid-alt"></i>
+                    </span>
+
+                </span>
+            </li>
+
+            <li class="item">
+                <a href="Dashboard" class="nav_link nav-link"
+                   data-bs-toggle="tooltip"
+                   data-bs-offset="0,8"
+                   data-bs-placement="right"
+                   title="Dashboard"
+                   data-bs-custom-class="tooltip-dark">
+                    <span class="navlink_icon">
+                        <i class='bx bx-bar-chart-square'></i>
+                    </span>
+                </a>
+            </li>
+
+            <li class="item">
+                <span @onclick="NavigetToReports">
+                    <a class="nav_link nav-link"
+                       data-bs-toggle="tooltip"
+                       data-bs-offset="0,8"
+                       data-bs-placement="right"
+                       title="Reports"
+                       data-bs-custom-class="tooltip-dark"
+                       data-bs-trigger="hover focus">
+                        <span class="navlink_icon">
+                            <i class="bx bx-file"></i>
+                        </span>
+                    </a>
+                </span>
+
+            </li>
+
+            <li class="item">
+                <span @onclick="NavigetToApproval">
+                    <a class="nav_link nav-link"
+                       data-bs-toggle="tooltip"
+                       data-bs-offset="0,8"
+                       data-bs-placement="right"
+                       title="Approvals"
+                       data-bs-custom-class="tooltip-dark">
+                        <span class="navlink_icon">
+                            <img src="img/approval.svg" class="bx bx-md" width="24px">
+                        </span>
+                    </a>
+                </span>
+
+            </li>
+
+
+            <li class="item menu-user" style="padding-top:10px">
+                <a class="userProfile nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);">
+                    <div class="avatar avatar-online">
+                        @* <img src="img/avatars/user.png" alt="" class="rounded-circle"> *@
+                        <img src="@userImg" alt="User Photo" class="rounded-circle" />
+                    </div>
+                </a>
+                <ul class=" profileDetails dropdown-menu" style="">
+
+                    <li>
+                        <button class="dropdown-item" @onclick="UserModal">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="avatar avatar-back-online">
+                                        @* <img src="img/avatars/user.png" alt="User Image" class="w-px-40 h-auto rounded-circle"> *@
+                                        <img src=@userImg alt="User Image" class="w-px-40 h-auto rounded-circle">
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    @* <h6 class="mb-0">Masum Billah</h6> *@
+                                    <h6 class="mb-0">@userName</h6>
+                                    @* <small class="text-muted">Lead Software Engineer</small> *@
+                                    <small class="text-muted">@userDescription</small>
+                                </div>
+                            </div>
+                        </button>
+                    </li>
+                    <li><div class="dropdown-divider my-1"></div></li>
+                    <li>
+                        <button class="dropdown-item" @onclick="UserModal">
+                            @* <i class="bx bx-user bx-md me-3"></i> *@
+                            <i class='bx bx-user-pin me-3'></i>
+
+                            <span>My Profile</span>
+                        </button>
+                    </li>
+                    <li><a class="dropdown-item" href="UserServiceRequests"><i class="bx bxs-coupon bx-md me-3"></i><span>Service Requests</span></a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bx bx-calendar me-3"></i><span>@transDate</span></a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bx bx-building-house me-3"></i><span>@userHomeOffice</span></a></li>
+
+                    <li><div class="dropdown-divider my-1"></div></li>
+                    <li>
+                        <button class="nav_link nav-link" @onclick="Logout">
+                            <i class="bx bx-power-off bx-md me-3">
+                            </i>
+                            <span>Log Out</span>
+                        </button>
+                    </li>
+
+                </ul>
+            </li>
+
+        </ul>
+        <div class="dropdown-divider my-1"></div>
+        <ul style="margin-bottom:0" class="menu_items bottom_section">
+            @* <li>
+                <button class="nav_link nav-link" @onclick="Logout">
+                    <span class="navlink_icon">
+                        <i style="color: #cb2027;font-weight:700" class="bx bx-power-off"></i>
+                    </span>
+                </button>
+            </li> *@
+            <li >
+                <span @onclick="()=>{isShowOwnerName=true;}" disabled>@BrandName</span>
+            </li>
+        </ul>
+
+
+    </div>
+</nav>
+
+
+@if (isShowOwnerName)
+{
+    <UXC_Modal ModalTitle="Owner Information" IsVisible="isShowOwnerName" IsVisibleChanged="()=>{isShowOwnerName = false;}">
+        <BodyContent>
+            <MedicinShopUI.Components.Pages.LicenceComponent></MedicinShopUI.Components.Pages.LicenceComponent>
+
+        </BodyContent>
+    </UXC_Modal>
+}
+
+
+
+
+
+<style>
+    .heart-button {
+        border: none;
+        background: none;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+        .heart-button i {
+            transition: color 0.2s ease-in-out;
+        }
+
+            .heart-button i.bxs-heart {
+                color: red; /* Filled heart will be red */
+            }
+
+            .heart-button i.bx-heart {
+                color: #4070f4; /* Outlined heart will be blue */
+            }
+</style>
+
+
+
+@* //Shakil Chowdhury *@
+<script>
+    function setSessionData(key, value) {
+        try {
+            DotNet.invokeMethodAsync("CoNikash.UI", "SetSessionData", key, value)
+                .then(() => console.log("Session data saved successfully"))
+                .catch(error => console.error("Error saving session data:", error));
+            window.location.href = "ApprovalQueue";
+        } catch (error) {
+            console.error("JavaScript error in setSessionData:", error);
+        }
+    }
+
+    function navigateToReports() {
+        window.location.href = "Report";
+    }
+</script>

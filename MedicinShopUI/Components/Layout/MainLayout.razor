@@ -1,23 +1,29 @@
-﻿@inherits LayoutComponentBase
+﻿@using MedicinShopUI.Components.Pages
+@using System.Text.Json
+@using ModelClasses
+@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+<NavMenu />
+<div class="home-section">
+    @Body
+    <!-- Layout page -->
+    @* <div class="layout-page">
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+                <div class="content-wrapper">
+
+                    <div class="container-xxl">
+
+                        <div>
+                            <div>
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div> *@
 </div>
-
-<div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
-</div>
+<SideMenu />

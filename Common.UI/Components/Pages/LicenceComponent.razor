@@ -1,0 +1,89 @@
+﻿@using Licence
+
+<div class="row">
+    <div class="col-12">
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <div class="col-12">
+                        @if (status == 1)
+                        {
+                            <div class="col-12 d-flex justify-content-center align-items-center">
+                                <div class="multicolor-blink">@LicenceMsg</div>
+                            </div>                            
+                        }
+                        <div class="row">
+                            <div class="row col-3">
+                                @((MarkupString)autherDetails.Image)
+                            </div>
+                            <div class="col-md-8 row">
+                                <div class="row">
+                                    <div class="col-md-3 form-group">
+                                        <UXC_Label LabelValue="Name : "></UXC_Label>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <UXC_Label LabelValue="@autherDetails.Name"></UXC_Label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 form-group">
+                                        <UXC_Label LabelValue="Phone : "></UXC_Label>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <UXC_Label LabelValue="@autherDetails.Phone"></UXC_Label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 form-group">
+                                        <UXC_Label LabelValue="Email : "></UXC_Label>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <UXC_Label LabelValue="@autherDetails.Email"></UXC_Label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 form-group">
+                                        <UXC_Label LabelValue="Email : "></UXC_Label>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <UXC_Label LabelValue="@autherDetails.Email"></UXC_Label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 form-group">
+                                        <UXC_Label LabelValue="Email : "></UXC_Label>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <UXC_Label LabelValue="@autherDetails.Email"></UXC_Label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    AutherDetails autherDetails = new AutherDetails();
+    [Parameter]
+    public int status { get; set; } = 0;
+    string LicenceMsg = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        LicenceCheck obj = new LicenceCheck();
+        int remainDays = obj.remainLicenceDate();
+        
+        if (remainDays <= 0)
+        {
+            LicenceMsg = "Licence is Expire !! Renew As Soon As Posible";
+        }
+        else { 
+            LicenceMsg = "Licence Expire within " + remainDays + " day(s)"; 
+        }
+        autherDetails = obj.getAuthorDetails();
+    }
+}

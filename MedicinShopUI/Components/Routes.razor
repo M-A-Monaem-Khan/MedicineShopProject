@@ -1,6 +1,29 @@
-﻿<Router AppAssembly="typeof(Program).Assembly">
+﻿@using Licence
+<Router AppAssembly="typeof(Program).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
         <FocusOnNavigate RouteData="routeData" Selector="h1" />
     </Found>
 </Router>
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        LicenceCheck _licenceCheck = new LicenceCheck();
+        int remainDays = _licenceCheck.remainLicenceDate();
+        if(remainDays <= 0){
+            navigationManager.NavigateTo("/Licence");
+        }
+        if (remainDays <= 15 && remainDays > 10)
+        {
+            //_toastService.ShowInfo("Licence will be Expire within " + remainDays + " day(s)");
+        }
+        else if(remainDays <= 10 && remainDays>5){
+            //_toastService.ShowInfo("Licence will be Expire within " + remainDays +" day(s)");
+        }
+        else if (remainDays <= 5 && remainDays >= 1){
+            //_toastService.ShowError("Licence will be Expire within " + remainDays + " day(s)");
+        }
+    }
+}
