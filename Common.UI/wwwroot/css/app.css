@@ -212,7 +212,7 @@ body {
     background-color: var(--white-color);
     width: 110px;
     position: absolute;
-    top: 70px;
+    top: 60px;
     left: 0;
     height: calc(100% - 70px);
     /*z-index: 100;*/

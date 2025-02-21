@@ -1,32 +1,58 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
-using System.Text.Json;
+﻿using Common.UI.Models;
+using Common.UI.Service;
+using ModelClasses;
+using UXComponents;
+
 
 namespace Common.UI.Components.Layout
 {
     public partial class SideMenu
     {
         public string inputPageNum = "";
-        private string userImg = "";
-        private string userName = "";
-        private string userDescription = "";
-        private string transDate = "";
-        private string userHomeOffice = "";
-        private string BrandName = "℗Monaem";
+        private string userImg = "img/avatars/user.png";
+        private string currentDate = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+        private string BrandName = "";
+        private string CopyWrite = "℗Monaem";
         private bool isShowOwnerName = false;
+        private List<FunctionModel> functions = new List<FunctionModel>();
+        private Dictionary<string, List<FunctionModel>> ModuleWiseItem = new Dictionary<string, List<FunctionModel>>();
+        private List<Dropdown> UserList = new List<Dropdown>();
+        private UserInformation _UserInformation = new UserInformation();
+        private bool isUserModalShow = false;
+        protected override async Task OnInitializedAsync()
+        {
+            BrandName = _config["BrandShortName"];
 
+            UserInformationService userInfoService = new UserInformationService(_env);
+            var result = await ProtectedSessionStore.GetAsync<string>("userId");
+            _UserInformation = await userInfoService.getUserInfoByUserId(result.Value);
+            if (!string.IsNullOrEmpty(_UserInformation.imgName))
+            {
+                userImg = "userInfo/Img/"+ _UserInformation.imgName;
+            }
+            if(_UserInformation.role == "Admin")
+            {
+                AdminFunctionList adminFunList = new AdminFunctionList(_env);
+                var adminList = await adminFunList.GetFunctionList();
+                ModuleWiseItem["Admin"] = adminList;
+            }
 
+            await LoadRouteList();
+        }
 
-        private Dictionary<string,string> ModuleWiseItem = new Dictionary<string, string>();
-
+        private async Task LoadRouteList()
+        {
+            FunctionList funList = new FunctionList(_env);
+            functions = await funList.GetFunctionList();
+            ModuleWiseItem["Medicine List"] = functions;
+        }
         private void RouteChange(string inputPageNum)
         {
-
+            navigationManager.NavigateTo(inputPageNum);
         }
         private void UserModal()
         {
-
+            isUserModalShow = true;
         }
 
         private void NavigetToReports()
@@ -39,9 +65,10 @@ namespace Common.UI.Components.Layout
 
         }
 
-        private void Logout()
+        private async Task Logout()
         {
-
+            await ProtectedSessionStore.DeleteAsync("userId");
+            navigationManager.NavigateTo("/Login", forceLoad: true);
         }
     }
 }

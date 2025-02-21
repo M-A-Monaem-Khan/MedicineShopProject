@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
 
-    <title>CBS | Core Banking Solution</title>
+    <title>Monaem</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="Common.UI.styles.css" />
     <link rel="stylesheet" href="./css/fontawesome/css/all.min.css" />
@@ -26,7 +26,6 @@
 </head>
 
 <body class="light-style">
-    <Loader></Loader>
     <Routes @rendermode="new InteractiveServerRenderMode(prerender: false)" />
     <script src="_framework/blazor.web.js"></script>
 
@@ -104,6 +103,15 @@
 
             });
 
+            $(document).on('click', '.functionClk', function (event) {
+                event.stopPropagation();
+                $(".searchPages").hide();
+                $(".menuRecent").hide();
+                $(".menuFavourite").hide();
+                $(".applicationList").hide();
+                $(".profileDetails").hide();
+
+            });
 
 
 
