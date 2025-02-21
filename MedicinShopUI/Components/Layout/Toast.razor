@@ -1,0 +1,104 @@
+﻿@using ModelClasses
+@if (IsVisible)
+{
+    <div class="custom-toast">
+        <div class="toast-header">
+            <span class="mx-auto">@Title</span>
+            <button type="button" class="btn-close" @onclick="HideToast"></button>
+        </div>
+        <div class="toast-body">
+            <i class="@icon icon"></i>
+            <span>@Message</span>            
+        </div>
+        <div class="col-12 progress mt-2">
+            <div class="progress-bar" style="width: @Progress%"></div>
+        </div>
+    </div>
+}
+
+<style>
+    .custom-toast {
+    width: 300px;
+    height: fit-content;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 9999;
+    padding: 10px;
+    transition: opacity 0.5s ease-in-out;
+    }
+
+    .custom-toast.show {
+    opacity: 1;
+    }
+
+    .custom-toast.hide {
+    opacity: 0;
+    }
+
+    .toast-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+    }
+
+    .toast-body {
+    display: flex;
+    align-items: center;
+    padding-top: 8px;
+    }
+
+    .icon {
+    font-size: 20px;
+    margin-right: 10px;
+    color: #007bff;
+    }
+
+    .progress {
+    height: 5px;
+    background: #ddd;
+    border-radius: 3px;
+    overflow: hidden;
+    }
+
+    .progress-bar {
+    height: 100%;
+    background: red;
+    transition: width 0.05s linear;
+    }
+</style>
+
+@code {
+    private bool IsVisible { get; set; } = true;
+    [Parameter]
+    public string Message { get; set; }
+    [Parameter]
+    public string Title { get; set; } = "Information";
+    // [Parameter]
+    // public EventCallback HideOutToast { get; set; }
+
+    private string icon = "fa-solid fa-circle-info";
+
+    private int Progress { get; set; } = 100;
+    private System.Timers.Timer? Timer;
+
+    protected override async Task OnInitializedAsync(){
+        
+        // await ShowToast();
+    }
+
+
+    private async void HideToast()
+    {
+        IsVisible = false;
+        Progress = 100;
+        Timer?.Stop();
+        Timer?.Dispose();
+    }
+}

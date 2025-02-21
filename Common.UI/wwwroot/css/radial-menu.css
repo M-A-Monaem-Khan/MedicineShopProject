@@ -1,0 +1,189 @@
+﻿.selector {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin-top: -70px;
+    margin-left: -70px;
+}
+
+    .selector,
+    .selector button {
+        font-family: 'Oswald', sans-serif;
+        font-weight: 300;
+    }
+
+.main-button {
+    position: absolute !important;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    background: #428bca;
+    border-radius: 50%;
+    border: 0;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 35px 29px 0px;
+    transition: all .2s;
+    animation: flip-head 7s infinite;
+}
+
+.additional-button {
+    position: absolute !important;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    background: #428bca;
+    border-radius: 50%;
+    border: 0;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 35px 29px 0px;
+    transition: all .2s;
+    animation: flip-tail 7s infinite;
+}
+
+.selector button:hover {
+    color: #428bca;
+    background: white;
+}
+
+.selector button:focus {
+    outline: none;
+}
+
+.selector ul {
+    position: absolute;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    top: -20px;
+    right: -20px;
+    bottom: -20px;
+    left: -20px;
+}
+
+.selector li {
+    position: absolute;
+    width: 0;
+    height: 100%;
+    margin: 0 50%;
+    transform: rotate(-360deg);
+    transition: all 0.8s ease-in-out;
+}
+
+.selector .orbit-one li input {
+    display: none;
+}
+
+    .selector .orbit-one li input + label {
+        position: absolute;
+        left: 50%;
+        bottom: 110%;
+        width: 0;
+        height: 0;
+        line-height: 1px;
+        margin-left: 0;
+        background: #fff;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 1px;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: none;
+        transition: all 0.8s ease-in-out, color 0.3s, background 0.3s, box-shadow 0.3s;
+    }
+
+.selector .orbit-two li input {
+    display: none;
+}
+
+    .selector .orbit-two li input + label {
+        position: absolute;
+        left: 50%;
+        bottom: 165%;
+        width: 0;
+        height: 0;
+        line-height: 1px;
+        margin-left: 0;
+        background: #fff;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 1px;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: none;
+        transition: all 0.8s ease-in-out, color 0.3s, background 0.3s, box-shadow 0.3s;
+    }
+
+.selector li .style1 {
+    color: #4077a2;
+}
+
+.selector li .style2 {
+    color: #24b1b7;
+}
+
+.selector li .style1:hover {
+    color: white;
+    background-color: #4077a2;
+    box-shadow: #4077a255 0px 35px 29px 0px !important;
+}
+
+.selector li .style2:hover {
+    color: white;
+    background-color: #24b1b7;
+    box-shadow: #24b1b755 0px 35px 29px 0px !important;
+}
+
+        /*.selector .orbit-one li input + label:hover,
+        .selector .orbit-two li input + label:hover {
+            color: white;
+            background: #428bca;
+        }*/
+
+.selector.open .orbit-one li input + label,
+.selector.open .orbit-two li input + label {
+    width: 100px;
+    height: 100px;
+    margin-left: -50px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 35px 29px 0px;
+    font-size: 14px;
+}
+
+@keyframes flip-head {
+    0% {
+        z-index: 10;
+        transform: rotateY(0deg);
+    }
+
+    50% {
+        z-index: 0;
+        transform: rotateY(180deg);
+    }
+
+    100% {
+        z-index: 10;
+        transform: rotateY(0deg);
+    }
+}
+
+@keyframes flip-tail {
+    0% {
+        z-index: 0;
+        transform: rotateY(180deg);
+    }
+
+    50% {
+        z-index: 10;
+        transform: rotateY(0deg);
+    }
+
+    100% {
+        z-index: 0;
+        transform: rotateY(180deg);
+    }
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "loginId": "mona",
+    "name": "M.A. Monaem Khan",
+    "description": "Junior Software Engineer",
+    "phone": "01303271849",
+    "address": "Dhaka Bangladesh",
+    "password": "1",
+    "imgName": "mona.jpg",
+    "role": "Admin",
+    "id": 1,
+    "recordUserId": "Admin",
+    "recordDate": "21-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "Push"
+  },
+  {
+    "loginId": "mona2",
+    "name": "M.A. Monaem Khan",
+    "description": "Junior Software Engineer",
+    "phone": "01303271849",
+    "address": "Rajshahi Bangladesh",
+    "password": "1",
+    "imgName": "",
+    "role": "",
+    "id": 2,
+    "recordUserId": "Admin",
+    "recordDate": "21-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "Push"
+  },
+  {
+    "loginId": "tets",
+    "name": "test",
+    "description": "test",
+    "phone": "tets",
+    "address": "test Bangladesh",
+    "password": "1",
+    "imgName": "",
+    "role": "",
+    "id": 3,
+    "recordUserId": "Admin",
+    "recordDate": "21-Feb-2025",
+    "lastRecordModifyUser": "mona",
+    "lastModifyDate": "21-Feb-2025",
+    "status": "DEL"
+  }
+]

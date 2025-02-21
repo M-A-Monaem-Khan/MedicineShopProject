@@ -1,0 +1,42 @@
+﻿@using Common.UI.Components.Pages.Component
+@using Common.UI.Models
+@using ModelClasses
+
+<div class="row">
+    <div class="col-12">
+        <h5 class="GridTitlebar">@_userInfo.name's Information</h5>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="row col-3">
+                                <img width="200" height="250" src="userInfo/Img/@_userInfo.imgName" alt="@_userInfo.name" />
+                            </div>
+                            <div class="col-md-8 row">
+                                <TableViewComponent DataList="generalData"></TableViewComponent>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code{
+    private string userImg = "";
+    [Parameter]
+    public UserInformation _userInfo { get; set; }
+    private List<GeneralData> generalData = new List<GeneralData>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        generalData.Add(new GeneralData { text = "User Id :", value = _userInfo.loginId });
+        generalData.Add(new GeneralData { text = "Name :", value = _userInfo.name });
+        generalData.Add(new GeneralData { text = "Description :", value = _userInfo.description });
+        generalData.Add(new GeneralData { text = "Phone :", value = _userInfo.phone });
+        generalData.Add(new GeneralData { text = "Address :", value = _userInfo.address });
+        generalData.Add(new GeneralData { text = "Role :", value = _userInfo.role });
+    }
+}

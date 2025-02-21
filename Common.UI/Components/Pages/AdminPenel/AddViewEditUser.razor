@@ -1,0 +1,113 @@
+﻿@page "/userDetails"
+@using Common.UI.Components.Pages.User_Pages
+@using Common.UI.Service
+@using ModelClasses
+@using System.Text.Json
+<PageTitle>User Details</PageTitle>
+
+<div class="row">
+    <div class="col-12">
+        <h5 class="GridTitlebar">User Information</h5>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <div class="col-12">
+                        <UXC_DataGrid Id="userdatagrid"
+                        DataSource="_userGridList"
+                        ShowEditButton="true"
+                        ShowDeleteButton="true"
+                        ShowViewButton="true"
+                        OnFHViewClick="viewBtnClick"
+                        OnFHDeleteClick="deleteBtnClick"
+                        CustomColumnNames="customeColumn"
+                        SelectedColumns="selectColumn"
+                        @key="@_userListKey"></UXC_DataGrid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h5 class="GridTitlebar">@title Information</h5>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <div class="col-12">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (isUserModalShow)
+{
+    <UXC_Modal ModalTitle="User Basic Information" IsVisible="isUserModalShow" IsVisibleChanged="()=>{isUserModalShow = false;}">
+        <BodyContent>
+            <UserInfoViewModal _userInfo="@_UserInformation"></UserInfoViewModal>
+        </BodyContent>
+    </UXC_Modal>
+}
+
+@code {
+    private bool isUserModalShow = false;
+    public string title = "Add";
+    private List<UserInformation> _userList = new List<UserInformation>();
+    private List<UserInformation> _userGridList = new List<UserInformation>();
+    private string _userListKey = Guid.NewGuid().ToString();
+    private UserInformationService _userInfoService;
+    private Dictionary<string, string> customeColumn = new Dictionary<string, string>(){
+        {"name","Name" },
+        {"phone","Phone" },
+        {"address","Address" },
+        {"role","Role" },
+    };
+    private List<string> selectColumn = new List<string>()
+    {
+        {"name"},
+        {"phone"},
+        {"address"},
+        {"role"},
+    };
+
+    private UserInformation _UserInformation = new UserInformation();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _userInfoService = new UserInformationService(_env);
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+
+        _userList = await _userInfoService.getAllUser();
+        _userGridList = new List<UserInformation>();
+        foreach (var item in _userList)
+        {
+            if (item.status != "DEL")
+            {
+                _userGridList.Add(item);
+            }
+        }
+        _userListKey = Guid.NewGuid().ToString();
+    }
+
+    private void viewBtnClick(string result)
+    {
+        _UserInformation = JsonSerializer.Deserialize<UserInformation>(result) ?? new UserInformation();
+        isUserModalShow = true;
+    }
+
+    private async void deleteBtnClick(string value)
+    {
+        var obj = JsonSerializer.Deserialize<UserInformation>(value) ?? new UserInformation();
+        var result = await ProtectedSessionStore.GetAsync<string>("userId");
+        var delObj = await _userInfoService.saveOrUpdateOrDeleteUser(obj,result.Value,true);
+        _toastService.ShowSuccess(delObj.name +" information Delete Sucessfully");
+        await LoadData();
+    }
+}

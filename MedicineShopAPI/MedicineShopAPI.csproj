@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Licence\Licence.csproj" />
     <ProjectReference Include="..\ModelClasses\ModelClasses.csproj" />
   </ItemGroup>
 

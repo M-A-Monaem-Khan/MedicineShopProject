@@ -1,0 +1,186 @@
+﻿@using MedicinShopUI.Components.Layout
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>Medicine Shop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    @* <link rel="stylesheet" href="MedicinShopUI.styles.css" /> *@
+    <link rel="stylesheet" href="./css/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="css/fonts/font.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="vendor/fonts/boxicons.css" />
+    <link href="css/core.css" rel="stylesheet" />
+    <link href="css/theme-default.css" rel="stylesheet" />
+    <link href="vendor/libs/bs-stepper/bs-stepper.css" rel="stylesheet" />
+    <link href="vendor/libs/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="vendor/libs/toastr/toastr.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
+
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+
+    <HeadOutlet />
+</head>
+
+<body class="light-style">
+    <Routes />
+    <script src="_framework/blazor.web.js"></script>
+
+
+    <script src="vendor/libs/popper/popper.js"></script>
+    <script src="vendor/js/bootstrap.js"></script>
+    <script src="js/stepper.js"></script>
+    <script src="js/loader.js"></script>
+    @* <script src="js/snapshot.js"></script> *@
+    <script src="vendor/libs/bs-stepper/bs-stepper.js"></script>
+    <script src="vendor/libs/toastr/toastr.js"></script>
+
+    @*  <script src="vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="js/fh-ui-perfect-scrollbar.js"></script> *@
+
+    <script src="js/fh-ui-custom-control.js"></script>
+    @* <script src="js/site.js"></script> *@
+
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="js/dataTables.bootstrap.min.js"></script>
+    <script src="js/radial-menu.js"></script>
+
+    @* <script src="js/canvasjs.min.js"></script> *@
+    @* <script src="js/fh-ui-chart.js"></script> *@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on('click', '.lnkPageSearch', function (event) {
+                event.stopPropagation();
+                $(".searchPages").toggle();
+                $(".menuRecent").hide();
+                $(".menuFavourite").hide();
+                $(".applicationList").hide();
+                $(".profileDetails").hide();
+
+            });
+
+            $(document).on('click', '.lnkRecent', function (event) {
+                event.stopPropagation();
+                $(".searchPages").hide();
+                $(".menuRecent").toggle();
+                $(".menuFavourite").hide();
+                $(".applicationList").hide();
+                $(".profileDetails").hide();
+
+            });
+
+            $(document).on('click', '.lnkFavourite', function (event) {
+                event.stopPropagation();
+                $(".searchPages").hide();
+                $(".menuRecent").hide();
+                $(".menuFavourite").toggle();
+                $(".applicationList").hide();
+                $(".profileDetails").hide();
+            });
+
+            $(document).on('click', '.lnkModule', function (event) {
+                event.stopPropagation();
+                $(".searchPages").hide();
+                $(".menuRecent").hide();
+                $(".menuFavourite").hide();
+                $(".applicationList").toggle();
+                $(".profileDetails").hide();
+
+            });
+
+            $(document).on('click', '.userProfile', function (event) {
+                event.stopPropagation();
+                $(".searchPages").hide();
+                $(".menuRecent").hide();
+                $(".menuFavourite").hide();
+                $(".applicationList").hide();
+                $(".profileDetails").toggle();
+
+            });
+
+
+
+
+
+            $(document).on("click", function (e) {
+                if (!$(e.target).closest(".searchPages").length) {
+
+                    var dim = $(".searchPages").is(":visible");
+                    if (dim == true) {
+                        $(".searchPages").hide();
+                    }
+
+                }
+
+                if (!$(e.target).closest(".menuRecent").length) {
+
+                    var dim = $(".menuRecent").is(":visible");
+                    if (dim == true) {
+                        $(".menuRecent").hide();
+                    }
+
+                }
+                if (!$(e.target).closest(".menuFavourite").length) {
+
+                    var dim = $(".menuFavourite").is(":visible");
+                    if (dim == true) {
+                        $(".menuFavourite").hide();
+                    }
+
+                }
+                if (!$(e.target).closest(".applicationList").length) {
+
+                    var dim = $(".applicationList").is(":visible");
+                    if (dim == true) {
+                        $(".applicationList").hide();
+                    }
+
+                }
+
+                if (!$(e.target).closest(".profileDetails").length) {
+
+                    var dim = $(".profileDetails").is(":visible");
+                    if (dim == true) {
+                        $(".profileDetails").hide();
+                    }
+
+                }
+
+            });
+
+        });
+
+
+
+
+        function initializeDataTable(tblName) {
+
+            var element = document.getElementById(tblName);
+            var element2 = document.getElementById(tblName + '_wrapper');
+            $(element2).remove();
+
+            $(element).DataTable({
+                "pageLength": 5,
+                "lengthMenu": [5, 10, 25, 50, 100],
+                "lengthChange": true,
+                columnDefs: [{
+                    'targets': [0, -1], /* column index [0,1,2,3]*/
+                    'orderable': false, /* true or false */
+                }]
+
+            });
+        }
+
+    </script>
+
+
+
+</body>
+
+
+</html>
