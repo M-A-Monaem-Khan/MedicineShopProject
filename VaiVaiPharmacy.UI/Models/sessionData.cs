@@ -12,7 +12,7 @@ namespace VaiVaiPharmacy.UI.Models
         }
         public async Task setSession(string userId)
         {
-            await _session.SetAsync("userId",userId);
+            await _session.SetAsync("userId", userId);
         }
 
         public async Task<string> getSession()

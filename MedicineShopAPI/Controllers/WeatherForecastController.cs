@@ -177,7 +177,7 @@ namespace MedicineShopAPI.Controllers
                 // Optionally save the image to a file, database, or whatever else you need.
                 // For now, we will just return the byte array.
 
-                return Ok(Convert.ToBase64String( imageBytes));  // Return image bytes to the client
+                return Ok(Convert.ToBase64String(imageBytes));  // Return image bytes to the client
             }
         }
 

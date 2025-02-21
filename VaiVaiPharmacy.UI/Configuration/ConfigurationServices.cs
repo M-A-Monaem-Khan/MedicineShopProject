@@ -16,7 +16,7 @@
                     });
             });
         }
-        
+
 
         public static void ConfigureIISIntegration(this IServiceCollection services)
         {
@@ -30,7 +30,7 @@
 
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
-            
+
         }
 
         public static void ConfigureJsonNamingConvention(this IServiceCollection services)

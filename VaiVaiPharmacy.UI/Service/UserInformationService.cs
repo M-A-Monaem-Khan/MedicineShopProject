@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using ModelClasses;
+﻿using ModelClasses;
 using System.Text.Json;
 
 namespace VaiVaiPharmacy.UI.Service
@@ -52,15 +51,15 @@ namespace VaiVaiPharmacy.UI.Service
             return isDuplicate;
         }
 
-        public async Task<UserInformation> saveOrUpdateOrDeleteUser(UserInformation _userInfo,string userId,bool delete = false)
+        public async Task<UserInformation> saveOrUpdateOrDeleteUser(UserInformation _userInfo, string userId, bool delete = false)
         {
             await GetUserList();
-            if(_userInfo.id == 0)
+            if (_userInfo.id == 0)
             {
                 var id = 1;
-                if(_userList.Count != 0)
+                if (_userList.Count != 0)
                 {
-                    id = _userList.Max(x => x.id)+1;
+                    id = _userList.Max(x => x.id) + 1;
                 }
                 _userInfo.id = id;
                 _userInfo.recordUserId = userId;
@@ -77,7 +76,7 @@ namespace VaiVaiPharmacy.UI.Service
                     {
                         _userInfo.lastRecordModifyUser = userId;
                         _userInfo.lastModifyDate = DateTime.UtcNow.ToString("dd-MMM-yyyy");
-                        if(delete)
+                        if (delete)
                             _userInfo.status = "DEL";
                         else
                             _userInfo.status = "EDT";
@@ -102,7 +101,7 @@ namespace VaiVaiPharmacy.UI.Service
             await GetUserList();
             foreach (var item in _userList)
             {
-                if(item.loginId == userid)
+                if (item.loginId == userid)
                 {
                     obj = item;
                     break;

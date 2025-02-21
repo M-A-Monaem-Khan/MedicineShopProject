@@ -1,7 +1,7 @@
-﻿using VaiVaiPharmacy.UI.Models;
-using VaiVaiPharmacy.UI.Service;
-using ModelClasses;
+﻿using ModelClasses;
 using UXComponents;
+using VaiVaiPharmacy.UI.Models;
+using VaiVaiPharmacy.UI.Service;
 
 
 namespace VaiVaiPharmacy.UI.Components.Layout
@@ -27,9 +27,9 @@ namespace VaiVaiPharmacy.UI.Components.Layout
             _UserInformation = await userInfoService.getUserInfoByUserId(await _sessionData.getSession());
             if (!string.IsNullOrEmpty(_UserInformation.imgName))
             {
-                userImg = "userInfo/Img/"+ _UserInformation.imgName;
+                userImg = "userInfo/Img/" + _UserInformation.imgName;
             }
-            if(_UserInformation.role == "Admin")
+            if (_UserInformation.role == "Admin")
             {
                 AdminFunctionList adminFunList = new AdminFunctionList(_env);
                 var adminList = await adminFunList.GetFunctionList();
