@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "recordUserId": "Admin",
+    "recordDate": "21-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "Push",
+    "companyDetails": "abc company",
+    "companyName": "abc"
+  },
+  {
+    "id": 2,
+    "recordUserId": "Admin",
+    "recordDate": "21-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "Push",
+    "companyDetails": "def company",
+    "companyName": "def"
+  },
+  {
+    "id": 3,
+    "recordUserId": "Admin",
+    "recordDate": "21-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "Push",
+    "companyDetails": "ghi company",
+    "companyName": "ghi"
+  }
+]

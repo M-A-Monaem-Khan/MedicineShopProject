@@ -25,6 +25,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Licence\Licence.csproj" />
 	  <ProjectReference Include="..\ModelClasses\ModelClasses.csproj" />
+	  <ProjectReference Include="..\VaiVaiPharmacyModelClass\VaiVaiPharmacyModelClass.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -2,12 +2,14 @@ using Blazored.Toast;
 using VaiVaiPharmacy.UI.Components;
 using VaiVaiPharmacy.UI.Configuration;
 using VaiVaiPharmacy.UI.Models;
+using VaiVaiPharmacy.UI.Service;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddScoped<sessionData>();
+builder.Services.AddScoped<GenericCRUDOperation>();
 
 //for Serversite render mode
 builder.Services.AddRazorComponents()

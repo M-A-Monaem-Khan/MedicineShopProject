@@ -1,0 +1,22 @@
+[
+  {
+    "medicineName": "test 01",
+    "companyName": "abc",
+    "id": 1,
+    "recordUserId": "mona",
+    "recordDate": "22-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
+  },
+  {
+    "medicineName": "test 02",
+    "companyName": "abc",
+    "id": 2,
+    "recordUserId": null,
+    "recordDate": null,
+    "lastRecordModifyUser": "mona",
+    "lastModifyDate": "22-Feb-2025",
+    "status": "DEL"
+  }
+]

@@ -1,4 +1,5 @@
 ﻿@page "/counter"
+@using VaiVaiPharmacyModelClass
 @rendermode InteractiveServer
 
 <PageTitle>Counter</PageTitle>
@@ -17,8 +18,16 @@
         var ss = navigationManager.Uri;
     }
 
-    private void IncrementCount()
+    private async Task IncrementCount()
     {
+        // var data = await _operation.getAll<Company>();
+        // var data1 = await _operation.getInfoById<Company>("ghi");
+        // var data2 = await _operation.getInfoById<Company>("1", "id");
+        MedicineDetails med = new MedicineDetails();
+        med.id = 2;
+        med.medicineName = "test 02";
+        med.companyName = "abc";
+        var data = await _operation.saveOrUpdateOrDeleteUser<MedicineDetails>(med,delete:true);
         _toastService.ShowError("test");
         currentCount++;
     }
