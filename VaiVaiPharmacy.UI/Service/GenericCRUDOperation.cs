@@ -1,6 +1,7 @@
 ﻿using ModelClasses;
 using System.Reflection;
 using System.Text.Json;
+using UXComponents;
 using VaiVaiPharmacy.UI.Models;
 
 namespace VaiVaiPharmacy.UI.Service
@@ -11,7 +12,10 @@ namespace VaiVaiPharmacy.UI.Service
         private readonly sessionData _session; 
         private Dictionary<string, string> _primaryColumn = new Dictionary<string, string>()
         {
-            {"Company","companyName" }
+            {"Company","companyName" },
+            {"MedicineDetails","medicineName" },
+            {"stockAvailable","medicineName" },
+            {"MedicinePrice","medicineName" }
         };
         public GenericCRUDOperation(IWebHostEnvironment env, sessionData storage)
         {
@@ -153,6 +157,26 @@ namespace VaiVaiPharmacy.UI.Service
             await saveDataList<T>(_dataList);
 
             return _info;
+        }
+        public async Task<List<Dropdown>> getDropDown<T>(string columnName) where T : class,ModelBase
+        {
+            List<Dropdown> list = new List<Dropdown>();
+
+            List<T> _dataList = new List<T>();
+            _dataList = await getDataList<T>();
+
+            var property = typeof(T).GetProperty(columnName);
+            foreach (var item in _dataList.Where(x=>x.status != "DEL").ToList<T>())
+            {
+                var d = property.GetValue(item);
+                list.Add(new Dropdown
+                {
+                    text = d+"",
+                    value = d+""
+                });
+            }
+
+            return list;
         }
     }
 }

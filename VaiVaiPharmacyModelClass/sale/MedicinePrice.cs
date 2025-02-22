@@ -1,11 +1,13 @@
 ﻿using ModelClasses;
 
-namespace VaiVaiPharmacyModelClass
+namespace VaiVaiPharmacyModelClass.sale
 {
-    public class MedicineDetails : ModelBase
+    public class MedicinePrice : ModelBase
     {
         public string medicineName { get; set; }
-        public string companyName { get; set; }
+        public decimal price { get; set; }
+        public decimal avgSellPrice { get; set; }
+        public decimal avgBuyPrice { get; set; }
         public int id { get; set; }
         public string recordUserId { get; set; }
         public string recordDate { get; set; }

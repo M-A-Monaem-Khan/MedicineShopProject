@@ -1,7 +1,7 @@
 [
   {
     "medicineName": "NAPA 500 MG",
-    "companyName": "abc",
+    "remain": 0,
     "id": 1,
     "recordUserId": "mona",
     "recordDate": "22-Feb-2025",
@@ -11,7 +11,7 @@
   },
   {
     "medicineName": "DOPAMIN",
-    "companyName": "def",
+    "remain": 0,
     "id": 2,
     "recordUserId": "mona",
     "recordDate": "22-Feb-2025",
@@ -21,7 +21,7 @@
   },
   {
     "medicineName": "SECLO",
-    "companyName": "ghi",
+    "remain": 0,
     "id": 3,
     "recordUserId": "mona",
     "recordDate": "22-Feb-2025",
@@ -31,7 +31,7 @@
   },
   {
     "medicineName": "JOY TRIP",
-    "companyName": "abc",
+    "remain": 0,
     "id": 4,
     "recordUserId": "mona",
     "recordDate": "22-Feb-2025",
@@ -41,7 +41,7 @@
   },
   {
     "medicineName": "TEST",
-    "companyName": "abc",
+    "remain": 0,
     "id": 5,
     "recordUserId": "mona",
     "recordDate": "22-Feb-2025",

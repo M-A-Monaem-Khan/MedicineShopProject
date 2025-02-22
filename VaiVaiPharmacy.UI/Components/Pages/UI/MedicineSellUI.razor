@@ -1,0 +1,108 @@
+﻿@page "/medicineSell"
+@using VaiVaiPharmacyModelClass
+@using VaiVaiPharmacyModelClass.sale
+<PageTitle>Sell Medecien</PageTitle>
+<NavMenu PageName="Sale Details" />
+
+<div class="row">
+    <div class="col-12">
+        <h5 class="GridTitlebar">Customer Information</h5>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <div class="col-12 row g-3">
+                        <div class="col-6 form-group">
+                            <UXC_TextBox Id="custId"
+                                         LabelText="Customer Name"
+                                         @bind-Value="_medSale.customerName"></UXC_TextBox>
+                        </div>
+                        <div class="col-6 form-group">
+                            <UXC_TextBox Id="custphnId"
+                                         LabelText="Customer Phone"
+                                         @bind-Value="_medSale.customerPhone"></UXC_TextBox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <h5 class="GridTitlebar">Sales Information</h5>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <div class="col-12 row g-3">
+                        <div class="col-6 form-group">
+                            <UXC_DropDown Id="medNameDr"
+                                          LabelText="Medicine Name"
+                                          Placeholder="-- Select Medicine --"
+                                          DataSource="_medicineNames"
+                                          @key="@_medicineNamesKey"></UXC_DropDown>
+                        </div>
+                        <div class="col-6"></div>
+                        <div class="col-3 form-group">
+                            <UXC_Number Id="quentutyId"
+                                        LabelText="Quentity"
+                                        @bind-Value="_medSaleDtails.quentity"></UXC_Number>
+                        </div>
+                        <div class="col-3 form-group">
+                            <UXC_Amount Id="actualPrice"
+                                        DecimalPoint="2"
+                                        LabelText="Actual Price"
+                                        @bind-Value="_medSaleDtails.actualPrice"></UXC_Amount>
+                        </div>
+                        <div class="col-3 form-group">
+                            <UXC_Amount Id="discoutnpar"
+                                        DecimalPoint="2"
+                                        LabelText="Discount(%)"
+                                        MaxAmt="100"
+                                        @bind-Value="_medSaleDtails.discountPercentage"></UXC_Amount>
+                        </div>
+                        <div class="col-3 form-group">
+                            <UXC_Amount Id="discountPrice"
+                                        DecimalPoint="2"
+                                        LabelText="Discount Price"
+                                        @bind-Value="_medSaleDtails.discountPrice"></UXC_Amount>
+                        </div>
+                        <div class="col-3 form-group">
+                            <UXC_Amount Id="discountPrice"
+                                        DecimalPoint="2"
+                                        LabelText="Price"
+                                        @bind-Value="_medSaleDtails.sellPrice"></UXC_Amount>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    MedicineSale _medSale = new MedicineSale();
+    MedicineSaleDetails _medSaleDtails = new MedicineSaleDetails();
+
+    private List<Dropdown> _medicineNames = new List<Dropdown>();
+    private string _medicineNamesKey = Guid.NewGuid().ToString();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _medSale.salesManName = await _sessionData.getSession();
+        _medSale.saleDate = DateTime.UtcNow.ToString("MM-ddd-yyyy");
+    }
+
+    private async Task BindCombo()
+    {
+        _medicineNames = await _operation.getDropDown<MedicineDetails>("medicineName");
+        _medicineNamesKey = Guid.NewGuid().ToString();
+    }
+
+    private async Task CleanFields()
+    {
+        _medSale = new MedicineSale();
+        _medSaleDtails = new MedicineSaleDetails();
+        _medicineNamesKey = Guid.NewGuid().ToString();
+    }
+}

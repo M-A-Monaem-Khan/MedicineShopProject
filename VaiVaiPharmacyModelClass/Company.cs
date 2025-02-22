@@ -1,13 +1,8 @@
 ﻿using ModelClasses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VaiVaiPharmacyModelClass
 {
-    public class Company:ModelBase
+    public class Company : ModelBase
     {
         public string companyName { get; set; }
         public string companyDetails { get; set; }

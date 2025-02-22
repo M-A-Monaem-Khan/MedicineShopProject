@@ -1,0 +1,152 @@
+﻿@page "/addMedice"
+@using System.Text.Json
+@using VaiVaiPharmacyModelClass
+@using VaiVaiPharmacyModelClass.Stock
+@using VaiVaiPharmacyModelClass.sale
+<PageTitle>Create Medicine</PageTitle>
+<NavMenu PageName="Create New Medicine"
+ShowButtonAdd="true" OnFHBtnAddClick="btnAddClick" btnSaveText="@btnAddText"
+ShowButtonRefresh="true" OnFHBtnRefreshClick="clearFields"
+ShowButtonExit="true"></NavMenu>
+
+<div class="row">
+    <div class="col-12">
+        <h5 class="GridTitlebar">Medicine Information</h5>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <form id="medVal" onsubmit="return false;" class="needs-validation" novalidate>
+                        <div class="col-12 row g-3">
+                            <div class="col-2 form-group">
+                                <UXC_Number Id="medid" LabelText="Id"
+                                Enable="false"
+                                @bind-Value="_medDetails.id"></UXC_Number>
+                            </div>
+                            <div class="col-10"></div>
+                            <div class="col-6 form-group">
+                                <UXC_TextBox Id="medname"
+                                LabelText="Medicine Name"
+                                Required="true"
+                                OnChanged="checkMedDuplicate"
+                                @bind-Value="_medDetails.medicineName"></UXC_TextBox>
+                            </div>
+                            <div class="col-6 form-group">
+                                <UXC_DropDown Id="medname"
+                                LabelText="Company Name"
+                                Required="true"
+                                Placeholder="-- Select Company --"
+                                @bind-Value="_medDetails.companyName"
+                                DataSource="_companyList"
+                                @key="@_companyListKey"></UXC_DropDown>
+                            </div>
+                            <div class="col-4 form-group">
+                                <UXC_Amount Id="priceId"
+                                Required="true"
+                                LabelText="Medicine Price"
+                                DecimalPoint="2"
+                                @key="@_avlStocK"
+                                @bind-Value="_medPrice.price"></UXC_Amount>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-12 form-group mt-3">
+                        <UXC_DataGrid Id="medDataGrid"
+                        ShowEditButton="true"
+                        OnFHEditClick="gridDataEditClick"
+                        CustomColumnNames="customeColumn"
+                        SelectedColumns="selectedColumn"
+                        DataSource="_medDetailsList"
+                        @key="@listKey"></UXC_DataGrid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string btnAddText = "Save";
+    private MedicineDetails _medDetails = new MedicineDetails();
+    private MedicinePrice _medPrice = new MedicinePrice();
+    private stockAvailable _avlStocK = new stockAvailable();
+    private List<Dropdown> _companyList = new List<Dropdown>();
+    private string _companyListKey = Guid.NewGuid().ToString();
+
+    private List<MedicineDetails> _medDetailsList = new List<MedicineDetails>();
+    private string listKey = Guid.NewGuid().ToString();
+    private Dictionary<string, string> customeColumn = new Dictionary<string, string>(){
+        {"medicineName","Medicine Name"},
+        {"companyName","Company"}
+    };
+    private List<string> selectedColumn = new List<string>(){
+        "medicineName",
+        "companyName"
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await BindCombo();
+        await LoadGrid();
+    }
+
+    private async Task BindCombo()
+    {
+        _companyList = await _operation.getDropDown<Company>("companyName");
+        _companyListKey = Guid.NewGuid().ToString();
+    }
+
+    private async Task LoadGrid()
+    {
+        var list = await _operation.getAll<MedicineDetails>();
+        _medDetailsList = list.Where(x => x.status != "DEL").ToList<MedicineDetails>();
+        listKey = Guid.NewGuid().ToString();
+    }
+
+    private async Task clearFields()
+    {
+        _medDetails = new MedicineDetails();
+        _medPrice = new MedicinePrice();
+        _medPrice.price = 0;
+        _avlStocK = new stockAvailable();
+        _companyListKey = Guid.NewGuid().ToString();
+        await LoadGrid();
+        btnAddText = "Save";
+    }
+
+    private async Task checkMedDuplicate()
+    {
+        _medDetails.medicineName = _medDetails.medicineName.Trim().ToUpper();
+        var result = await _operation.isDuplicateValue<MedicineDetails>(_medDetails.medicineName);
+        if (result)
+        {
+            _toastService.ShowError(_medDetails.medicineName + " Already Exits");
+            await clearFields();
+        }
+    }
+
+    private async Task btnAddClick()
+    {
+        bool Validation = await _jsruntime.InvokeAsync<bool>("globalFunctions.validateFormById", "medVal");
+        if (Validation == false)
+        {
+            return;
+        }
+        _medPrice.medicineName = _medDetails.medicineName;
+        _avlStocK.medicineName = _medDetails.medicineName;
+        var data = await _operation.saveOrUpdateOrDeleteUser<MedicineDetails>(_medDetails);
+        var data1 = await _operation.saveOrUpdateOrDeleteUser<MedicinePrice>(_medPrice);
+        var data2 = await _operation.saveOrUpdateOrDeleteUser<stockAvailable>(_avlStocK);
+
+        _toastService.ShowSuccess(_medDetails.medicineName +" "+ btnAddText+ " Succesfully ");
+        await clearFields();
+    }
+
+    private async Task gridDataEditClick(string value)
+    {
+        _medDetails = JsonSerializer.Deserialize<MedicineDetails>(value) ?? new MedicineDetails();
+        _medPrice = await _operation.getInfoById<MedicinePrice>(_medDetails.medicineName);
+        _avlStocK = await _operation.getInfoById<stockAvailable>(_medDetails.medicineName);
+        btnAddText = "Update";
+    }
+
+}

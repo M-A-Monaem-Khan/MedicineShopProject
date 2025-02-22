@@ -1,11 +1,16 @@
 ﻿using ModelClasses;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace VaiVaiPharmacyModelClass
+namespace VaiVaiPharmacyModelClass.Stock
 {
-    public class MedicineDetails : ModelBase
+    public class stockAvailable:ModelBase
     {
-        public string medicineName { get; set; }
-        public string companyName { get; set; }
+        public string medicineName {get;set;}
+        public int remain { get;set;}
         public int id { get; set; }
         public string recordUserId { get; set; }
         public string recordDate { get; set; }

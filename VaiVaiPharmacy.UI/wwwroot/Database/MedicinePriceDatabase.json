@@ -1,7 +1,9 @@
 [
   {
     "medicineName": "NAPA 500 MG",
-    "companyName": "abc",
+    "price": 5.00,
+    "avgSellPrice": 0,
+    "avgBuyPrice": 0,
     "id": 1,
     "recordUserId": "mona",
     "recordDate": "22-Feb-2025",
@@ -11,7 +13,9 @@
   },
   {
     "medicineName": "DOPAMIN",
-    "companyName": "def",
+    "price": 8.00,
+    "avgSellPrice": 0,
+    "avgBuyPrice": 0,
     "id": 2,
     "recordUserId": "mona",
     "recordDate": "22-Feb-2025",
@@ -21,7 +25,9 @@
   },
   {
     "medicineName": "SECLO",
-    "companyName": "ghi",
+    "price": 12.00,
+    "avgSellPrice": 0,
+    "avgBuyPrice": 0,
     "id": 3,
     "recordUserId": "mona",
     "recordDate": "22-Feb-2025",
@@ -31,7 +37,9 @@
   },
   {
     "medicineName": "JOY TRIP",
-    "companyName": "abc",
+    "price": 2.00,
+    "avgSellPrice": 0,
+    "avgBuyPrice": 0,
     "id": 4,
     "recordUserId": "mona",
     "recordDate": "22-Feb-2025",
@@ -41,7 +49,9 @@
   },
   {
     "medicineName": "TEST",
-    "companyName": "abc",
+    "price": 120.00,
+    "avgSellPrice": 0,
+    "avgBuyPrice": 0,
     "id": 5,
     "recordUserId": "mona",
     "recordDate": "22-Feb-2025",
