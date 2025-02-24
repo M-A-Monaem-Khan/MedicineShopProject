@@ -18,6 +18,7 @@
   </ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Aspose.Cells" Version="25.2.0" />
 		<PackageReference Include="Blazored.Toast" Version="4.2.1" />
 		<PackageReference Include="UXComponents" Version="1.0.2.1" />
 	</ItemGroup>

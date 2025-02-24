@@ -1,62 +1,74 @@
 [
   {
-    "medicineName": "NAPA 500 MG",
-    "price": 5.00,
+    "medicineName": "NAPA EXTENED",
+    "price": 3.00,
     "avgSellPrice": 0,
     "avgBuyPrice": 0,
     "id": 1,
     "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
   },
   {
-    "medicineName": "DOPAMIN",
-    "price": 8.00,
+    "medicineName": "NAPA",
+    "price": 2.00,
     "avgSellPrice": 0,
     "avgBuyPrice": 0,
     "id": 2,
     "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
   },
   {
-    "medicineName": "SECLO",
-    "price": 12.00,
+    "medicineName": "NAPA SIRUP",
+    "price": 40.00,
     "avgSellPrice": 0,
     "avgBuyPrice": 0,
     "id": 3,
     "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
   },
   {
-    "medicineName": "JOY TRIP",
-    "price": 2.00,
+    "medicineName": "DOPAMIN",
+    "price": 10.00,
     "avgSellPrice": 0,
     "avgBuyPrice": 0,
     "id": 4,
     "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
   },
   {
-    "medicineName": "TEST",
-    "price": 120.00,
+    "medicineName": "SELCLO",
+    "price": 12.00,
     "avgSellPrice": 0,
     "avgBuyPrice": 0,
     "id": 5,
     "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
+  },
+  {
+    "medicineName": "SERGIL",
+    "price": 10.00,
+    "avgSellPrice": 0,
+    "avgBuyPrice": 0,
+    "id": 6,
+    "recordUserId": "mona",
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
   }
 ]

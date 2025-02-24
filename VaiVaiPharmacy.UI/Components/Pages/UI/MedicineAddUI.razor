@@ -3,6 +3,7 @@
 @using VaiVaiPharmacyModelClass
 @using VaiVaiPharmacyModelClass.Stock
 @using VaiVaiPharmacyModelClass.sale
+
 <PageTitle>Create Medicine</PageTitle>
 <NavMenu PageName="Create New Medicine"
 ShowButtonAdd="true" OnFHBtnAddClick="btnAddClick" btnSaveText="@btnAddText"
@@ -39,6 +40,27 @@ ShowButtonExit="true"></NavMenu>
                                 DataSource="_companyList"
                                 @key="@_companyListKey"></UXC_DropDown>
                             </div>
+                            <div class="col-6 form-group">
+                                <UXC_TextBox Id="medgenericname"
+                                LabelText="Generic Name"
+                                Required="true"
+                                @bind-Value="_medDetails.genericName"></UXC_TextBox>
+                            </div>
+                            <div class="col-3 form-group">
+                                <UXC_DropDown Id="medtype"
+                                LabelText="Med Type"
+                                Required="true"
+                                Placeholder="-- Select Type --"
+                                @bind-Value="_medDetails.type"
+                                DataSource="_typeList"
+                                @key="@_typeListKey"></UXC_DropDown>
+                            </div>
+                            <div class="col-3 form-group">
+                                <UXC_TextBox Id="medstringth"
+                                             LabelText="Strength"
+                                             Required="true"
+                                             @bind-Value="_medDetails.stength"></UXC_TextBox>
+                            </div>
                             <div class="col-4 form-group">
                                 <UXC_Amount Id="priceId"
                                 Required="true"
@@ -71,6 +93,8 @@ ShowButtonExit="true"></NavMenu>
     private stockAvailable _avlStocK = new stockAvailable();
     private List<Dropdown> _companyList = new List<Dropdown>();
     private string _companyListKey = Guid.NewGuid().ToString();
+    private List<Dropdown> _typeList = new List<Dropdown>();
+    private string _typeListKey = Guid.NewGuid().ToString();
 
     private List<MedicineDetails> _medDetailsList = new List<MedicineDetails>();
     private string listKey = Guid.NewGuid().ToString();
@@ -93,6 +117,17 @@ ShowButtonExit="true"></NavMenu>
     {
         _companyList = await _operation.getDropDown<Company>("companyName");
         _companyListKey = Guid.NewGuid().ToString();
+        _typeList.Add(new Dropdown
+        {
+            text = "Tablet",
+            value = "Tablet"
+        });
+        _typeList.Add(new Dropdown
+            {
+                text = "Liquid",
+                value = "Liquid"
+            });
+        _typeListKey = Guid.NewGuid().ToString();
     }
 
     private async Task LoadGrid()
@@ -109,6 +144,7 @@ ShowButtonExit="true"></NavMenu>
         _medPrice.price = 0;
         _avlStocK = new stockAvailable();
         _companyListKey = Guid.NewGuid().ToString();
+        _typeListKey = Guid.NewGuid().ToString();
         await LoadGrid();
         btnAddText = "Save";
     }
@@ -148,5 +184,4 @@ ShowButtonExit="true"></NavMenu>
         _avlStocK = await _operation.getInfoById<stockAvailable>(_medDetails.medicineName);
         btnAddText = "Update";
     }
-
 }

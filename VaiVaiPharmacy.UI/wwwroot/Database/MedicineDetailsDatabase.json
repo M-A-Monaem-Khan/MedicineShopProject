@@ -1,52 +1,80 @@
 [
   {
-    "medicineName": "NAPA 500 MG",
-    "companyName": "abc",
+    "medicineName": "NAPA EXTENED",
+    "companyName": "Square Pharmaceuticals Ltd.",
+    "genericName": "Test 001",
+    "type": "Tablet",
+    "stength": "675 mg",
     "id": 1,
     "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
+  },
+  {
+    "medicineName": "NAPA",
+    "companyName": "Square Pharmaceuticals Ltd.",
+    "genericName": "test 0001",
+    "type": "Tablet",
+    "stength": "500 mg",
+    "id": 2,
+    "recordUserId": "mona",
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
+  },
+  {
+    "medicineName": "NAPA SIRUP",
+    "companyName": "Square Pharmaceuticals Ltd.",
+    "genericName": "Test 001",
+    "type": "Liquid",
+    "stength": "100 mg",
+    "id": 3,
+    "recordUserId": "mona",
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
   },
   {
     "medicineName": "DOPAMIN",
-    "companyName": "def",
-    "id": 2,
-    "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
-  },
-  {
-    "medicineName": "SECLO",
-    "companyName": "ghi",
-    "id": 3,
-    "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
-  },
-  {
-    "medicineName": "JOY TRIP",
-    "companyName": "abc",
+    "companyName": "Incepta Pharmaceuticals Ltd.",
+    "genericName": "Test 002",
+    "type": "Tablet",
+    "stength": "10 mg",
     "id": 4,
     "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
   },
   {
-    "medicineName": "TEST",
-    "companyName": "abc",
+    "medicineName": "SELCLO",
+    "companyName": "Incepta Pharmaceuticals Ltd.",
+    "genericName": "Test 003",
+    "type": "Tablet",
+    "stength": "25 mg",
     "id": 5,
     "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
+  },
+  {
+    "medicineName": "SERGIL",
+    "companyName": "Square Pharmaceuticals Ltd.",
+    "genericName": "test 003",
+    "type": "Tablet",
+    "stength": "25 mg",
+    "id": 6,
+    "recordUserId": "mona",
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
   }
 ]

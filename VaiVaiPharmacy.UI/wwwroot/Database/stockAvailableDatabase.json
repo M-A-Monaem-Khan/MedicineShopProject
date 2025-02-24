@@ -1,52 +1,62 @@
 [
   {
-    "medicineName": "NAPA 500 MG",
+    "medicineName": "NAPA EXTENED",
     "remain": 0,
     "id": 1,
     "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
+  },
+  {
+    "medicineName": "NAPA",
+    "remain": 0,
+    "id": 2,
+    "recordUserId": "mona",
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
+  },
+  {
+    "medicineName": "NAPA SIRUP",
+    "remain": 0,
+    "id": 3,
+    "recordUserId": "mona",
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
   },
   {
     "medicineName": "DOPAMIN",
     "remain": 0,
-    "id": 2,
-    "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
-  },
-  {
-    "medicineName": "SECLO",
-    "remain": 0,
-    "id": 3,
-    "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
-  },
-  {
-    "medicineName": "JOY TRIP",
-    "remain": 0,
     "id": 4,
     "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
   },
   {
-    "medicineName": "TEST",
+    "medicineName": "SELCLO",
     "remain": 0,
     "id": 5,
     "recordUserId": "mona",
-    "recordDate": "22-Feb-2025",
-    "lastRecordModifyUser": "mona",
-    "lastModifyDate": "22-Feb-2025",
-    "status": "EDT"
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
+  },
+  {
+    "medicineName": "SERGIL",
+    "remain": 0,
+    "id": 6,
+    "recordUserId": "mona",
+    "recordDate": "24-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
   }
 ]

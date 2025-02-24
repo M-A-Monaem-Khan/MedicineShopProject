@@ -16,7 +16,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddServerSideBlazor().AddHubOptions(options =>
 {
-    options.MaximumReceiveMessageSize = 10485760; //10MB 
+    options.MaximumReceiveMessageSize = (20*1024*1024); //20MB 
 });
 builder.Services.AddCascadingAuthenticationState();
 

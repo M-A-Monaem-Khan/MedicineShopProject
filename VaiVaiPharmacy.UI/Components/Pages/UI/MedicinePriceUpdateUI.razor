@@ -83,6 +83,7 @@ ShowButtonExit="true"></NavMenu>
         foreach (var data in _priceListShow){
             await _operation.saveOrUpdateOrDeleteUser<MedicinePrice>(data);
         }
+        _toastService.ShowSuccess("Update Sucessfull");
         await LoadGrid();
     }
 
