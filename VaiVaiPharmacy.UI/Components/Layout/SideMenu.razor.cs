@@ -42,8 +42,14 @@ namespace VaiVaiPharmacy.UI.Components.Layout
         private async Task LoadRouteList()
         {
             FunctionList funList = new FunctionList(_env);
-            functions = await funList.GetFunctionList();
-            ModuleWiseItem["Medicine List"] = functions;
+            //functions = await funList.GetFunctionList();
+            //ModuleWiseItem["Medicine List"] = functions;
+            functions = await funList.GetMedicineFunctionList();
+            ModuleWiseItem["Medicine"] = functions;
+            functions = await funList.GetstockFunctionList();
+            ModuleWiseItem["Stock"] = functions;
+            functions = await funList.GetMedSellFunctionList();
+            ModuleWiseItem["Sale"] = functions;
         }
         private void RouteChange(string inputPageNum)
         {
