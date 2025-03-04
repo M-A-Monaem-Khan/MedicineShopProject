@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<sessionData>();
 builder.Services.AddScoped<GenericCRUDOperation>();
+builder.Services.AddScoped<AllCommonMethodeClass>();
 
 //for Serversite render mode
 builder.Services.AddRazorComponents()

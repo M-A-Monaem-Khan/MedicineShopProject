@@ -81,7 +81,7 @@ ShowButtonExit="true"></NavMenu>
     private async Task btnAddClick()
     {
         foreach (var data in _priceListShow){
-            await _operation.saveOrUpdateOrDeleteUser<MedicinePrice>(data);
+            await _operation.saveOrUpdateOrDeleteData<MedicinePrice>(data);
         }
         _toastService.ShowSuccess("Update Sucessfull");
         await LoadGrid();

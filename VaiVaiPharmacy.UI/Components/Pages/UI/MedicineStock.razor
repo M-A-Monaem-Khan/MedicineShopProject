@@ -1,0 +1,279 @@
+﻿@page "/medicineStock"
+@using VaiVaiPharmacyModelClass.Stock
+@using VaiVaiPharmacyModelClass.sale
+
+<PageTitle>Create Stock</PageTitle>
+<NavMenu PageName="Create Stock" ShowButtonAdd="true" OnFHBtnAddClick="SaveStock" />
+
+<div class="row">
+    <div class="col-12">
+        <h5 class="GridTitlebar">Saler Information</h5>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <div class="col-12 row g-3">
+                        <div class="col-4 form-group">
+                            <UXC_TextBox Id="buyerId"
+                            LabelText="Name"
+                            @bind-Value="_stock.buyerName"></UXC_TextBox>
+                        </div>
+                        <div class="col-4 form-group">
+                            <UXC_TextBox Id="buyerPhone"
+                            LabelText="Phome"
+                            @bind-Value="_stock.buyerPhone"></UXC_TextBox>
+                        </div>
+                        <div class="col-4 form-group">
+                            <UXC_Date Id="buyDate"
+                            LabelText="Purches Date"
+                            @bind-Value="stockBuyDate"></UXC_Date>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <div class="col-12 row g-3">
+                        <div class="col-2 form-group">
+                            <UXC_Number Id="totalBuy"
+                            LabelText="Total Purches"
+                            Enable="false"
+                            @key="@overAllRefreshKey"
+                            @bind-Value="_stock.totalQuentity"></UXC_Number>
+                        </div>
+                        <div class="col-2 form-group">
+                            <UXC_Amount Id="totalPriceId"
+                            Enable="false"
+                            LabelText="Purches Price"
+                            @key="@overAllRefreshKey"
+                            @bind-Value="_stock.totalPrice"></UXC_Amount>
+                        </div>
+                        <div class="col-2 form-group">
+                            <UXC_Amount Id="totalDiscountId"
+                            Enable="false"
+                            @key="@overAllRefreshKey"
+                            LabelText="Discount Price"
+                            @bind-Value="_stock.totalDiscount"></UXC_Amount>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h5 class="GridTitlebar">Stock Details</h5>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-5 form-group">
+                                <UXC_DropDown Id="test"
+                                Placeholder="-- select medicine --"
+                                DataSource="_medNameList"
+                                @bind-Value="DpMedId"
+                                SelectedTextChanged="dropDownSelect"
+                                @key="@_medNameListKey"></UXC_DropDown>
+                            </div>
+                            @* <div class="col-2 form-group">
+                                <UXC_Btn LabelText="ADD" OnClick="AddRow"></UXC_Btn>
+                            </div> *@
+                        </div>
+                        <table class="table table-striped mt-5">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Medicine Name</th>
+                                    <th>Quentity</th>
+                                    <th>Buying Price (per Pis)</th>
+                                    <th>Discount Price(TK.)</th>
+                                    <th>Sell Price (per Pis)</th>
+                                    <th>Price</th>
+                                    <th>Estimated Profit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in _stockDetailsList)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <button class="btn" @onclick="()=>DeleteClick(item)">
+                                                    <img src="./img/trash-fill.svg" style="color:red;" />
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @item.medicineName
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <UXC_Number Id="qunId"
+                                                OnChanged="()=>onBuyDiscpountQuentityChange(item)"
+                                                @bind-Value="item.quentity"></UXC_Number>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <UXC_Amount Id="buyPId"
+                                                DecimalPoint="2"
+                                                OnChanged="()=>onBuyDiscpountQuentityChange(item)"
+                                                @bind-Value="item.buyPrice"
+                                                @key="@overAllRefreshKey"></UXC_Amount>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <UXC_Amount Id="overallId"
+                                                @bind-Value="item.dicountPrice"
+                                                OnChanged="()=>onBuyDiscpountQuentityChange(item)"
+                                                @key="@overAllRefreshKey"></UXC_Amount>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @item.sellPrice
+                                        </td>
+                                        <td>
+                                            @item.actualPrice
+                                        </td>
+                                        <td>
+                                            @item.estimatedProfit
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    private string DpMedId = "";
+    private string DpMedName = "";
+    private bool isOverallDiscount = true;
+    private decimal overAllDiscount = 0;
+    private StockBuy _stock = new StockBuy();
+    private List<StockBuyetails> _stockDetailsList = new List<StockBuyetails>();
+    private DateTime stockBuyDate = DateTime.UtcNow;
+
+    private string overAllRefreshKey = Guid.NewGuid().ToString();
+
+
+    private List<Dropdown> _medNameList = new List<Dropdown>();
+    private string _medNameListKey = Guid.NewGuid().ToString();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await BindCombo();
+    }
+
+    private async Task BindCombo()
+    {
+        _medNameList = await _common.MedicineDropDown();
+        _medNameListKey = Guid.NewGuid().ToString();
+    }
+
+    private async Task ClearFields()
+    {
+        _stock = new StockBuy();
+        _stockDetailsList = new List<StockBuyetails>();
+        overAllRefreshKey = Guid.NewGuid().ToString();
+        _medNameListKey = Guid.NewGuid().ToString();
+    }
+    private async Task AddRow()
+    {
+        if (DpMedId == "0" || string.IsNullOrEmpty(DpMedId))
+        {
+            _toastService.ShowError("Select A Medicine First");
+            return;
+        }
+        if (_stockDetailsList.Count > 0)
+        {
+            var lastData = _stockDetailsList[_stockDetailsList.Count - 1];
+            if (lastData.quentity == 0 || string.IsNullOrEmpty(lastData.quentity + ""))
+            {
+                _toastService.ShowError("Quentity Is Requried For " + lastData.medicineName);
+                return;
+            }
+            if (lastData.buyPrice == 0 || string.IsNullOrEmpty(lastData.buyPrice + ""))
+            {
+                _toastService.ShowError("Buying Price Is Requried For " + lastData.medicineName);
+                return;
+            }
+        }
+
+        var medPrice = await _operation.getInfoById<MedicinePrice>(DpMedId+ "", "medId");
+
+        _stockDetailsList.Add(new StockBuyetails
+            {
+                medicineid = Convert.ToInt32(DpMedId),
+                medicineName = DpMedName,
+                sellPrice = medPrice.price
+            });
+        DpMedId = "";
+        _medNameListKey = Guid.NewGuid().ToString();
+    }
+    private async Task dropDownSelect(string value)
+    {
+        DpMedName = value;
+        if(!string.IsNullOrEmpty(value))
+            await AddRow();
+    }
+    private void DeleteClick(StockBuyetails item)
+    {
+        _stockDetailsList.Remove(item);
+    }
+
+    private void onBuyDiscpountQuentityChange(StockBuyetails item)
+    {
+        foreach (var data in _stockDetailsList)
+        {
+            if (data == item)
+            {
+                data.actualPrice = (item.buyPrice * item.quentity) - item.dicountPrice;
+                data.estimatedProfit = (item.sellPrice * item.quentity) - data.actualPrice;
+                break;
+            }
+        }
+        UpdateTotalPrice();
+    }
+
+    private void UpdateTotalPrice()
+    {
+        _stock.totalQuentity = 0;
+        _stock.totalPrice = 0;
+        _stock.totalDiscount = 0;
+
+        foreach(var data in _stockDetailsList)
+        {
+            _stock.totalQuentity = _stock.totalQuentity + data.quentity;
+            _stock.totalPrice = _stock.totalPrice + data.actualPrice;
+            _stock.totalDiscount = _stock.totalDiscount + data.dicountPrice;
+        }
+    }
+
+    private async Task SaveStock()
+    {
+        if(_stockDetailsList.Count <= 0){
+            _toastService.ShowError("Must Add Stock Details");
+            return;
+        }
+        _stock.buyDate = stockBuyDate.ToString("dd/MMM/yyy");
+        await _common.StockAdd(_stock,_stockDetailsList);
+        _toastService.ShowSuccess("Stock Added Sucessfull Succesfull");
+        await ClearFields();
+    }
+}

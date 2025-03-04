@@ -28,7 +28,7 @@ ShowButtonExit="true"></NavMenu>
                                 <UXC_TextBox Id="medname"
                                 LabelText="Medicine Name"
                                 Required="true"
-                                OnChanged="checkMedDuplicate"
+                                OnChanged="UpperCase"
                                 @bind-Value="_medDetails.medicineName"></UXC_TextBox>
                             </div>
                             <div class="col-6 form-group">
@@ -44,6 +44,7 @@ ShowButtonExit="true"></NavMenu>
                                 <UXC_TextBox Id="medgenericname"
                                 LabelText="Generic Name"
                                 Required="true"
+                                OnChanged="UpperCase"
                                 @bind-Value="_medDetails.genericName"></UXC_TextBox>
                             </div>
                             <div class="col-3 form-group">
@@ -57,9 +58,10 @@ ShowButtonExit="true"></NavMenu>
                             </div>
                             <div class="col-3 form-group">
                                 <UXC_TextBox Id="medstringth"
-                                             LabelText="Strength"
-                                             Required="true"
-                                             @bind-Value="_medDetails.stength"></UXC_TextBox>
+                                LabelText="Strength"
+                                Required="true"
+                                OnChanged="UpperCase"
+                                @bind-Value="_medDetails.stength"></UXC_TextBox>
                             </div>
                             <div class="col-4 form-group">
                                 <UXC_Amount Id="priceId"
@@ -100,11 +102,17 @@ ShowButtonExit="true"></NavMenu>
     private string listKey = Guid.NewGuid().ToString();
     private Dictionary<string, string> customeColumn = new Dictionary<string, string>(){
         {"medicineName","Medicine Name"},
-        {"companyName","Company"}
+        {"companyName","Company"},
+        {"genericName","Generic Name"},
+        {"type","Type"},
+        {"stength","Strength"},
     };
     private List<string> selectedColumn = new List<string>(){
         "medicineName",
-        "companyName"
+        "companyName",
+        "genericName",
+        "type",
+        "stength",
     };
 
     protected override async Task OnInitializedAsync()
@@ -130,6 +138,18 @@ ShowButtonExit="true"></NavMenu>
         _typeListKey = Guid.NewGuid().ToString();
     }
 
+    private void UpperCase(){
+        try{
+            _medDetails.medicineName = _medDetails.medicineName.ToUpper();
+        }catch{}
+        try{
+            _medDetails.genericName = _medDetails.genericName.ToUpper();
+        }catch{}
+        try{
+            _medDetails.stength = _medDetails.stength.ToUpper();
+        }catch{}
+    }
+
     private async Task LoadGrid()
     {
         var list = await _operation.getAll<MedicineDetails>();
@@ -149,17 +169,6 @@ ShowButtonExit="true"></NavMenu>
         btnAddText = "Save";
     }
 
-    private async Task checkMedDuplicate()
-    {
-        _medDetails.medicineName = _medDetails.medicineName.Trim().ToUpper();
-        var result = await _operation.isDuplicateValue<MedicineDetails>(_medDetails.medicineName);
-        if (result)
-        {
-            _toastService.ShowError(_medDetails.medicineName + " Already Exits");
-            await clearFields();
-        }
-    }
-
     private async Task btnAddClick()
     {
         bool Validation = await _jsruntime.InvokeAsync<bool>("globalFunctions.validateFormById", "medVal");
@@ -167,11 +176,17 @@ ShowButtonExit="true"></NavMenu>
         {
             return;
         }
-        _medPrice.medicineName = _medDetails.medicineName;
-        _avlStocK.medicineName = _medDetails.medicineName;
-        var data = await _operation.saveOrUpdateOrDeleteUser<MedicineDetails>(_medDetails);
-        var data1 = await _operation.saveOrUpdateOrDeleteUser<MedicinePrice>(_medPrice);
-        var data2 = await _operation.saveOrUpdateOrDeleteUser<stockAvailable>(_avlStocK);
+        if (await _common.isDuplicateMedicine(_medDetails)){
+            _toastService.ShowError("Medicine Already Exits !!");
+            return;
+        }
+        _medPrice.medicineName = _medDetails.medicineName + "(" + _medDetails.stength + ") - " + _medDetails.type;
+        _avlStocK.medicineName = _medDetails.medicineName + "(" + _medDetails.stength + ") - " + _medDetails.type;
+        var data = await _operation.saveOrUpdateOrDeleteData<MedicineDetails>(_medDetails);
+        _medPrice.medId = data.id;
+        var data1 = await _operation.saveOrUpdateOrDeleteData<MedicinePrice>(_medPrice);
+        _avlStocK.medId = data.id;
+        var data2 = await _operation.saveOrUpdateOrDeleteData<stockAvailable>(_avlStocK);
 
         _toastService.ShowSuccess(_medDetails.medicineName +" "+ btnAddText+ " Succesfully ");
         await clearFields();

@@ -113,7 +113,7 @@ namespace VaiVaiPharmacy.UI.Service
             return (T)obj;
 
         }
-        public async Task<T> saveOrUpdateOrDeleteUser<T>(T _info, bool delete = false) where T : class,ModelBase
+        public async Task<T> saveOrUpdateOrDeleteData<T>(T _info, bool delete = false) where T : class,ModelBase
         {
             List<T> _dataList = new List<T>();
             _dataList = await getDataList<T>();            

@@ -1,60 +1,44 @@
 [
   {
-    "medicineName": "NAPA EXTENED",
-    "remain": 0,
+    "medId": 1,
+    "medicineName": "NAPA",
+    "remain": 4000,
     "id": 1,
     "recordUserId": "mona",
-    "recordDate": "24-Feb-2025",
-    "lastRecordModifyUser": null,
-    "lastModifyDate": null,
-    "status": "ADD"
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": "mona",
+    "lastModifyDate": "04-Mar-2025",
+    "status": "EDT"
   },
   {
+    "medId": 2,
     "medicineName": "NAPA",
-    "remain": 0,
+    "remain": 50,
     "id": 2,
     "recordUserId": "mona",
-    "recordDate": "24-Feb-2025",
-    "lastRecordModifyUser": null,
-    "lastModifyDate": null,
-    "status": "ADD"
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": "mona",
+    "lastModifyDate": "28-Feb-2025",
+    "status": "EDT"
   },
   {
-    "medicineName": "NAPA SIRUP",
+    "medId": 3,
+    "medicineName": "DOPAMIN",
     "remain": 0,
     "id": 3,
     "recordUserId": "mona",
-    "recordDate": "24-Feb-2025",
-    "lastRecordModifyUser": null,
-    "lastModifyDate": null,
-    "status": "ADD"
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": "mona",
+    "lastModifyDate": "28-Feb-2025",
+    "status": "EDT"
   },
   {
-    "medicineName": "DOPAMIN",
+    "medId": 4,
+    "medicineName": "SECLO",
     "remain": 0,
     "id": 4,
     "recordUserId": "mona",
-    "recordDate": "24-Feb-2025",
-    "lastRecordModifyUser": null,
-    "lastModifyDate": null,
-    "status": "ADD"
-  },
-  {
-    "medicineName": "SELCLO",
-    "remain": 0,
-    "id": 5,
-    "recordUserId": "mona",
-    "recordDate": "24-Feb-2025",
-    "lastRecordModifyUser": null,
-    "lastModifyDate": null,
-    "status": "ADD"
-  },
-  {
-    "medicineName": "SERGIL",
-    "remain": 0,
-    "id": 6,
-    "recordUserId": "mona",
-    "recordDate": "24-Feb-2025",
+    "recordDate": "28-Feb-2025",
     "lastRecordModifyUser": null,
     "lastModifyDate": null,
     "status": "ADD"

@@ -4,6 +4,7 @@ namespace VaiVaiPharmacyModelClass.sale
 {
     public class MedicinePrice : ModelBase
     {
+        public int medId { get; set; }
         public string medicineName { get; set; }
         public decimal price { get; set; }
         public decimal avgSellPrice { get; set; }

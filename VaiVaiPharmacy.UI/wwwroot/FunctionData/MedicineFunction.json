@@ -1,0 +1,10 @@
+[
+  {
+    "FunctionName": "Add New Medicine",
+    "RouteName": "/addMedice"
+  },
+  {
+    "FunctionName": "View Medicine Price",
+    "RouteName": "/medicinePrice"
+  }
+]

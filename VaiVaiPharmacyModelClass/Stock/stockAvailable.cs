@@ -9,6 +9,7 @@ namespace VaiVaiPharmacyModelClass.Stock
 {
     public class stockAvailable:ModelBase
     {
+        public int medId {get;set;}
         public string medicineName {get;set;}
         public int remain { get;set;}
         public int id { get; set; }

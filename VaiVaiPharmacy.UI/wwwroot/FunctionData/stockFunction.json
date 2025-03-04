@@ -1,0 +1,10 @@
+[
+  {
+    "FunctionName": "Add New Stock",
+    "RouteName": "/medicineStock"
+  },
+  {
+    "FunctionName": "Daily Stock Details",
+    "RouteName": "/dailyStockDetails"
+  }
+]

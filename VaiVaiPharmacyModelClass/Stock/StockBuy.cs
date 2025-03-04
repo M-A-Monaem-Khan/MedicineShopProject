@@ -12,8 +12,9 @@ namespace VaiVaiPharmacyModelClass.Stock
         public string buyerName { get; set; }
         public string buyerPhone { get; set; }
         public string buyDate { get; set; }
-        public int totalBuy { get; set; }
-        public decimal totalPrice { get; set; }
+        public int totalQuentity { get; set; } = 0;
+        public decimal totalPrice { get; set; } = 0;
+        public decimal totalDiscount { get; set; } = 0;
         public int id { get; set; }
         public string recordUserId { get; set; }
         public string recordDate { get; set; }

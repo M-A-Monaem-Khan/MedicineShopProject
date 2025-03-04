@@ -10,11 +10,14 @@ namespace VaiVaiPharmacyModelClass.Stock
     public class StockBuyetails:ModelBase
     {
         public int stockId { get; set; }
-        public string medicineName { get; set; }
+        public int medicineid { get; set; }
+        public string medicineName { get; set; } = string.Empty;
         public int quentity { get; set; }
+        public decimal buyPrice { get; set; }
+        public decimal sellPrice { get; set; }
         public decimal actualPrice { get; set; }
         public decimal dicountPrice { get; set; }
-        public decimal buyPrice { get; set; }
+        public decimal estimatedProfit { get; set; }
         public int id { get; set; }
         public string recordUserId { get; set; }
         public string recordDate { get; set; }
