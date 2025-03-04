@@ -2,19 +2,22 @@ using Blazored.Toast;
 using VaiVaiPharmacy.UI.Components;
 using VaiVaiPharmacy.UI.Configuration;
 using VaiVaiPharmacy.UI.Models;
+using VaiVaiPharmacy.UI.Service;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddScoped<sessionData>();
+builder.Services.AddScoped<GenericCRUDOperation>();
+builder.Services.AddScoped<AllCommonMethodeClass>();
 
 //for Serversite render mode
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddServerSideBlazor().AddHubOptions(options =>
 {
-    options.MaximumReceiveMessageSize = 10485760; //10MB 
+    options.MaximumReceiveMessageSize = (20*1024*1024); //20MB 
 });
 builder.Services.AddCascadingAuthenticationState();
 

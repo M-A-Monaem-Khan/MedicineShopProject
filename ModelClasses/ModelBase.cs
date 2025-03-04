@@ -1,8 +1,8 @@
 ﻿namespace ModelClasses
 {
-    public class ModelBase
+    public interface ModelBase
     {
-        public int id { get; set; } = 0;
+        public int id { get; set; }
         public string recordUserId { get; set; }
         public string recordDate { get; set; }
         public string lastRecordModifyUser { get; set; }

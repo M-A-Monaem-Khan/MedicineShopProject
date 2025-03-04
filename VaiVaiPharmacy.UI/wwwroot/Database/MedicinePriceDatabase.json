@@ -1,0 +1,54 @@
+[
+  {
+    "medId": 1,
+    "medicineName": "NAPA",
+    "price": 3.00,
+    "avgSellPrice": 3.00,
+    "avgBuyPrice": 1.975,
+    "id": 1,
+    "recordUserId": "mona",
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": "mona",
+    "lastModifyDate": "04-Mar-2025",
+    "status": "EDT"
+  },
+  {
+    "medId": 2,
+    "medicineName": "NAPA",
+    "price": 50.00,
+    "avgSellPrice": 50.00,
+    "avgBuyPrice": 38.00,
+    "id": 2,
+    "recordUserId": "mona",
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": "mona",
+    "lastModifyDate": "28-Feb-2025",
+    "status": "EDT"
+  },
+  {
+    "medId": 3,
+    "medicineName": "DOPAMIN",
+    "price": 10.00,
+    "avgSellPrice": 0,
+    "avgBuyPrice": 0,
+    "id": 3,
+    "recordUserId": "mona",
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": "mona",
+    "lastModifyDate": "28-Feb-2025",
+    "status": "EDT"
+  },
+  {
+    "medId": 4,
+    "medicineName": "SECLO",
+    "price": 60.00,
+    "avgSellPrice": 0,
+    "avgBuyPrice": 0,
+    "id": 4,
+    "recordUserId": "mona",
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
+  }
+]

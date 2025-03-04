@@ -11,5 +11,11 @@ namespace ModelClasses
         public string password { get; set; }
         public string imgName { get; set; }
         public string role { get; set; }
+        public int id { get; set; }
+        public string recordUserId { get; set; }
+        public string recordDate { get; set; }
+        public string lastRecordModifyUser { get; set; }
+        public string lastModifyDate { get; set; }
+        public string status { get; set; }
     }
 }

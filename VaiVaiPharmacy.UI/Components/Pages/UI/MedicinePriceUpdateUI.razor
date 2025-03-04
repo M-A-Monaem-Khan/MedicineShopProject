@@ -1,0 +1,90 @@
+﻿@page "/medicinePrice"
+@using VaiVaiPharmacyModelClass.sale
+<PageTitle>Medicine Price</PageTitle>
+
+<NavMenu PageName="Medicine Price"
+ShowButtonAdd="true" OnFHBtnAddClick="btnAddClick"
+ShowButtonExit="true"></NavMenu>
+
+<div class="row">
+    <div class="col-12">
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <div class="col-12">
+                        <div class="col-6 mb-2">
+                            <input type="text" @bind="searchVal" @oninput="HandleKeyPress"
+                            placeholder="Search..." class="form-control" />
+                        </div>
+
+                        <table class="table table-striped mt-5">
+                            <thead>
+                                <tr>
+                                    <th>Medicine Name</th>
+                                    <th>Buy Price (avg.)</th>
+                                    <th>Sale Price (avg.)</th>
+                                    <th>Sale Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in _priceListShow)
+                                {
+                                    <tr>
+                                        <td>@item.medicineName</td>
+                                        <td>@item.avgBuyPrice</td>
+                                        <td>@item.avgSellPrice</td>
+                                        <td>
+                                            <div class="col-6 form-group">
+                                                <UXC_Amount Id="priceId"
+                                                DecimalPoint="2"
+                                                @key="@refreshKey"
+                                                @bind-Value="item.price"></UXC_Amount>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    private string searchVal = "";
+    private List<MedicinePrice> _priceList = new List<MedicinePrice>();
+    private List<MedicinePrice> _priceListShow = new List<MedicinePrice>();
+    private string refreshKey = Guid.NewGuid().ToString();
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadGrid();
+    }
+
+    private async Task LoadGrid()
+    {
+        _priceList = await _operation.getAll<MedicinePrice>();
+        _priceListShow = _priceList.Where(x => x.status != "DEL").ToList<MedicinePrice>();
+        refreshKey = Guid.NewGuid().ToString();
+        searchVal = "";
+    }
+
+    private async Task HandleKeyPress(ChangeEventArgs e)
+    {
+        searchVal = e.Value.ToString();
+        _priceListShow = _priceList.Where(x => x.status != "DEL" && x.medicineName.Contains(searchVal.ToUpper())).ToList<MedicinePrice>();
+    }
+
+    private async Task btnAddClick()
+    {
+        foreach (var data in _priceListShow){
+            await _operation.saveOrUpdateOrDeleteData<MedicinePrice>(data);
+        }
+        _toastService.ShowSuccess("Update Sucessfull");
+        await LoadGrid();
+    }
+
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "recordUserId": "Admin",
+    "recordDate": "21-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "Push",
+    "companyDetails": "Square Pharmaceuticals Ltd.",
+    "companyName": "Square Pharmaceuticals Ltd."
+  },
+  {
+    "id": 2,
+    "recordUserId": "Admin",
+    "recordDate": "21-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "Push",
+    "companyDetails": "Eskayef Pharmaceuticals Ltd.",
+    "companyName": "Eskayef Pharmaceuticals Ltd."
+  },
+  {
+    "id": 3,
+    "recordUserId": "Admin",
+    "recordDate": "21-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "Push",
+    "companyDetails": "Drug International Ltd.",
+    "companyName": "Drug International Ltd."
+  },
+  {
+    "id": 4,
+    "recordUserId": "Admin",
+    "recordDate": "21-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "Push",
+    "companyDetails": "Beacon Pharmaceuticals Ltd.",
+    "companyName": "Beacon Pharmaceuticals Ltd."
+  },
+  {
+    "id": 5,
+    "recordUserId": "Admin",
+    "recordDate": "21-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "Push",
+    "companyDetails": "Janssen-Cilag",
+    "companyName": "Janssen-Cilag"
+  },
+  {
+    "id": 6,
+    "recordUserId": "Admin",
+    "recordDate": "21-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "Push",
+    "companyDetails": "Incepta Pharmaceuticals Ltd.",
+    "companyName": "Incepta Pharmaceuticals Ltd."
+  }
+]

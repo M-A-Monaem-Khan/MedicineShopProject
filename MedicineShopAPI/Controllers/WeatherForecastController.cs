@@ -1,6 +1,7 @@
 using Licence;
 using Microsoft.AspNetCore.Mvc;
 using ModelClasses;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 
@@ -52,6 +53,22 @@ namespace MedicineShopAPI.Controllers
             public int Id { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
+        }
+
+        [HttpGet("MethodeName")]
+        public async Task<IActionResult> getMName()
+        {
+            string MNane = "";
+            MNane = getMethodeName<UserData>();
+            return Ok(MNane);
+        }
+
+        private string getMethodeName<T>()
+        {
+            string methodeName = "";
+            MethodInfo[] methodInfos = typeof(T).GetMethods();
+            methodeName = methodInfos[0].DeclaringType.Name;
+            return methodeName;
         }
         [HttpPost("add")]
         public async Task<IActionResult> AddUser(UserData newUser)

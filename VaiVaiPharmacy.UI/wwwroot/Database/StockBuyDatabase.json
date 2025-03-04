@@ -1,0 +1,44 @@
+[
+  {
+    "buyerName": "hai",
+    "buyerPhone": "013",
+    "buyDate": "28/Feb/2025",
+    "totalQuentity": 4000,
+    "totalPrice": 7900,
+    "totalDiscount": 100,
+    "id": 1,
+    "recordUserId": "mona",
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": "mona",
+    "lastModifyDate": "28-Feb-2025",
+    "status": "DEL"
+  },
+  {
+    "buyerName": "rahim",
+    "buyerPhone": "013",
+    "buyDate": "28/Feb/2025",
+    "totalQuentity": 250,
+    "totalPrice": 2180,
+    "totalDiscount": 520,
+    "id": 2,
+    "recordUserId": "mona",
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": "mona",
+    "lastModifyDate": "04-Mar-2025",
+    "status": "EDT"
+  },
+  {
+    "buyerName": "hai",
+    "buyerPhone": "013",
+    "buyDate": "28/Feb/2025",
+    "totalQuentity": 4000,
+    "totalPrice": 7900,
+    "totalDiscount": 100,
+    "id": 3,
+    "recordUserId": "mona",
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
+  }
+]

@@ -1,4 +1,5 @@
 ﻿@page "/counter"
+@using VaiVaiPharmacyModelClass
 @rendermode InteractiveServer
 
 <PageTitle>Counter</PageTitle>
@@ -17,8 +18,10 @@
         var ss = navigationManager.Uri;
     }
 
-    private void IncrementCount()
+    private async Task IncrementCount()
     {
+        
+        var data = await _operation.getDropDown<MedicineDetails>("medicineName");
         _toastService.ShowError("test");
         currentCount++;
     }

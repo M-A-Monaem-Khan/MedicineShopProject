@@ -1,0 +1,141 @@
+﻿@page "/dailyStockDetails"
+@using VaiVaiPharmacyModelClass.Stock
+<PageTitle>View Stock Details</PageTitle>
+<NavMenu></NavMenu>
+
+<div class="row">
+    <div class="col-12">
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-8"></div>
+                            <div class="col-4 form-group">
+                                <UXC_Date Id="dateId"
+                                @bind-Value="selectedDate"
+                                OnChanged="selectedDateChange"></UXC_Date>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <table class="table table-striped mt-5">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th>Quentity</th>
+                                        <th>Price</th>
+                                        <th>Discount</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in _stockBuyList)
+                                    {
+                                        <tr>                                            
+                                            <td>@item.buyerName</td>
+                                            <td>@item.buyerPhone</td>
+                                            <td>@item.totalQuentity</td>
+                                            <td>@item.totalPrice</td>
+                                            <td>@item.totalDiscount</td>
+                                            <td>
+                                                <button class="btn btn-danger" @onclick="()=>DeleteClick(item)">
+                                                    DEL
+                                                </button>
+                                                <button class="btn btn-primary" @onclick="()=>ViewClick(item)">
+                                                    View
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (isDetailsShow)
+{
+    <UXC_Modal IsVisible="@isDetailsShow" IsVisibleChanged="()=>{isDetailsShow = false;}" ModalTitle="Stock Details">
+        <BodyContent>
+            <table class="table table-striped mt-5">
+                <thead>
+                    <tr>
+                        <th>Medicine Name</th>
+                        <th>Quentity</th>
+                        <th>Buy Price</th>
+                        <th>Discount Price</th>
+                        <th>Actual Price</th>
+                        <th>Sell Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in _stockBuyetailsList)
+                    {
+                        <tr>
+                            <td>@item.medicineName</td>
+                            <td>@item.quentity</td>
+                            <td>@item.buyPrice</td>
+                            <td>@item.dicountPrice</td>
+                            <td>@item.actualPrice</td>
+                            <td>@item.sellPrice</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>DeleteIndividualClick(item)">
+                                    DEL
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </BodyContent>
+    </UXC_Modal>
+}
+
+@code{
+    private bool isDetailsShow = false;
+    private DateTime selectedDate = DateTime.UtcNow;
+    private List<StockBuy> _stockBuyList = new List<StockBuy>();
+    private List<StockBuyetails> _stockBuyetailsList = new List<StockBuyetails>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadStockBuyList();
+    }
+
+    private async Task selectedDateChange()
+    {
+        await LoadStockBuyList();
+    }
+
+    private async Task LoadStockBuyList()
+    {
+        var temp = await _operation.getAll<StockBuy>();
+        _stockBuyList = temp.Where(x => x.buyDate == selectedDate.ToString("dd/MMM/yyyy") && x.status != "DEL").ToList<StockBuy>();
+    }
+    private async Task DeleteClick(StockBuy data)
+    {
+        await _common.StockDelete(data.id);
+        await LoadStockBuyList();
+    }
+    private async Task ViewClick(StockBuy data)
+    {
+        var temp = await _operation.getAll<StockBuyetails>();
+        _stockBuyetailsList = temp.Where(x => x.stockId == data.id && x.status != "DEL").ToList<StockBuyetails>();
+        isDetailsShow = true;
+    }
+
+    private async Task DeleteIndividualClick(StockBuyetails data)
+    {
+        await _common.StockIndividualDelete(data.stockId, data);
+        _stockBuyetailsList.Remove(data);
+    }
+}

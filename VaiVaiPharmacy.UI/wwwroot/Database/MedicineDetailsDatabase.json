@@ -1,0 +1,54 @@
+[
+  {
+    "medicineName": "NAPA",
+    "companyName": "Square Pharmaceuticals Ltd.",
+    "genericName": "ABCD",
+    "type": "Tablet",
+    "stength": "100 MG",
+    "id": 1,
+    "recordUserId": "mona",
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": "mona",
+    "lastModifyDate": "28-Feb-2025",
+    "status": "EDT"
+  },
+  {
+    "medicineName": "NAPA",
+    "companyName": "Square Pharmaceuticals Ltd.",
+    "genericName": "ABCD",
+    "type": "Liquid",
+    "stength": "500 MG",
+    "id": 2,
+    "recordUserId": "mona",
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
+  },
+  {
+    "medicineName": "DOPAMIN",
+    "companyName": "Eskayef Pharmaceuticals Ltd.",
+    "genericName": "BCDF",
+    "type": "Tablet",
+    "stength": "10 MG",
+    "id": 3,
+    "recordUserId": "mona",
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
+  },
+  {
+    "medicineName": "SECLO",
+    "companyName": "Beacon Pharmaceuticals Ltd.",
+    "genericName": "CDEF",
+    "type": "Tablet",
+    "stength": "500 MG",
+    "id": 4,
+    "recordUserId": "mona",
+    "recordDate": "28-Feb-2025",
+    "lastRecordModifyUser": null,
+    "lastModifyDate": null,
+    "status": "ADD"
+  }
+]
