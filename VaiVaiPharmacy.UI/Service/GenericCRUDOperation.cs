@@ -26,7 +26,7 @@ namespace VaiVaiPharmacy.UI.Service
         private string dbFileName<T>()
         {
             string filename = "";
-            filename = "Database/" + MethodeName<T>() + "Database.json";
+            filename = "Database\\" + MethodeName<T>() + "Database.json";
             return filename;
         }
         private string MethodeName<T>()
@@ -83,7 +83,13 @@ namespace VaiVaiPharmacy.UI.Service
         public async Task<List<T>> getAll<T>() where T : class, ModelBase
         {
             List<T> _dataList = new List<T>();
-            _dataList = await getDataList<T>();
+            try
+            {
+                _dataList = await getDataList<T>();
+            }catch (Exception ex)
+            {
+               
+            }
             return _dataList;
         }
         public async Task<T> getInfoById<T>(string value,string columnName = null) where T : class, ModelBase

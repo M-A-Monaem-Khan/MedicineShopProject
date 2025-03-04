@@ -8,8 +8,10 @@ namespace VaiVaiPharmacyModelClass.sale
         public string customerPhone { get; set; }
         public string saleDate { get; set; }
         public string salesManName { get; set; }
-        public int totalSale {  get; set; }
-        public decimal totalPrice { get; set; }
+        public int totalSaleQuentity {  get; set; }
+        public decimal totalSalePrice { get; set; }
+        public decimal totalDiscountPrice { get; set; }
+        public decimal totalProfitGain { get; set; }
         public int id { get; set; }
         public string recordUserId { get; set; }
         public string recordDate { get; set; }

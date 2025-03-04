@@ -1,5 +1,6 @@
 ﻿@page "/medicineSell"
 @using VaiVaiPharmacyModelClass
+@using VaiVaiPharmacyModelClass.Stock
 @using VaiVaiPharmacyModelClass.sale
 <PageTitle>Sell Medecien</PageTitle>
 <NavMenu PageName="Sale Details" />
@@ -11,15 +12,66 @@
             <div class="box-body">
                 <div class="content">
                     <div class="col-12 row g-3">
-                        <div class="col-6 form-group">
+                        <div class="col-4 form-group">
                             <UXC_TextBox Id="custId"
-                                         LabelText="Customer Name"
-                                         @bind-Value="_medSale.customerName"></UXC_TextBox>
+                            LabelText="Customer Name"
+                            @bind-Value="_medSale.customerName"></UXC_TextBox>
                         </div>
-                        <div class="col-6 form-group">
+                        <div class="col-4 form-group">
                             <UXC_TextBox Id="custphnId"
-                                         LabelText="Customer Phone"
-                                         @bind-Value="_medSale.customerPhone"></UXC_TextBox>
+                            LabelText="Customer Phone"
+                            @bind-Value="_medSale.customerPhone"></UXC_TextBox>
+                        </div>
+                        <div class="col-4 form-group">
+                            <UXC_Date Id="SaleDt"
+                            LabelText="Date"
+                            Enable="false"
+                            @bind-Value="saledate"></UXC_Date>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="content">
+                    <div class="col-12 row g-3">
+                        <div class="col-2 form-group">
+                            <UXC_Number Id="totalBuy"
+                            LabelText="Total Sale"
+                            Enable="false"
+                            @key="@overAllRefreshKey"
+                            @bind-Value="_medSale.totalSaleQuentity"></UXC_Number>
+                        </div>
+                        <div class="col-2 form-group">
+                            <UXC_Amount Id="totalPriceId"
+                            DecimalPoint="2"
+                            Enable="false"
+                            LabelText="Purches Price"
+                            @key="@overAllRefreshKey"
+                            @bind-Value="_medSale.totalSalePrice"></UXC_Amount>
+                        </div>
+                        <div class="col-2 form-group">
+                            <UXC_Amount Id="totalDiscountId"
+                            DecimalPoint="2"
+                            Enable="false"
+                            @key="@overAllRefreshKey"
+                            LabelText="Discount Price"
+                            @bind-Value="_medSale.totalDiscountPrice"></UXC_Amount>
+                        </div>
+                        <div class="col-2 form-group">
+                            <UXC_Amount Id="totalProfitId"
+                            DecimalPoint="2"
+                            Enable="false"
+                            @key="@overAllRefreshKey"
+                            LabelText="Profit"
+                            @bind-Value="_medSale.totalProfitGain"></UXC_Amount>
                         </div>
                     </div>
                 </div>
@@ -27,52 +79,89 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-12">
         <h5 class="GridTitlebar">Sales Information</h5>
         <div class="box box-primary">
             <div class="box-body">
                 <div class="content">
-                    <div class="col-12 row g-3">
-                        <div class="col-6 form-group">
-                            <UXC_DropDown Id="medNameDr"
-                                          LabelText="Medicine Name"
-                                          Placeholder="-- Select Medicine --"
-                                          DataSource="_medicineNames"
-                                          @key="@_medicineNamesKey"></UXC_DropDown>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-5 form-group">
+                                <UXC_DropDown Id="test"
+                                Placeholder="-- select medicine --"
+                                DataSource="_medNameList"
+                                @bind-Value="DpMedId"
+                                SelectedTextChanged="dropDownSelect"
+                                @key="@_medNameListKey"></UXC_DropDown>
+                            </div>
                         </div>
-                        <div class="col-6"></div>
-                        <div class="col-3 form-group">
-                            <UXC_Number Id="quentutyId"
-                                        LabelText="Quentity"
-                                        @bind-Value="_medSaleDtails.quentity"></UXC_Number>
-                        </div>
-                        <div class="col-3 form-group">
-                            <UXC_Amount Id="actualPrice"
-                                        DecimalPoint="2"
-                                        LabelText="Actual Price"
-                                        @bind-Value="_medSaleDtails.actualPrice"></UXC_Amount>
-                        </div>
-                        <div class="col-3 form-group">
-                            <UXC_Amount Id="discoutnpar"
-                                        DecimalPoint="2"
-                                        LabelText="Discount(%)"
-                                        MaxAmt="100"
-                                        @bind-Value="_medSaleDtails.discountPercentage"></UXC_Amount>
-                        </div>
-                        <div class="col-3 form-group">
-                            <UXC_Amount Id="discountPrice"
-                                        DecimalPoint="2"
-                                        LabelText="Discount Price"
-                                        @bind-Value="_medSaleDtails.discountPrice"></UXC_Amount>
-                        </div>
-                        <div class="col-3 form-group">
-                            <UXC_Amount Id="discountPrice"
-                                        DecimalPoint="2"
-                                        LabelText="Price"
-                                        @bind-Value="_medSaleDtails.sellPrice"></UXC_Amount>
-                        </div>
-
+                        <table class="table table-striped mt-5">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Medicine Name</th>
+                                    <th>Quentity</th>
+                                    <th>Sale Price (per Pis)</th>
+                                    <th>Avg. Buy Price (per Pis)</th>
+                                    <th>Discount Price(TK.)</th>
+                                    <th>Price</th>
+                                    <th>Profit Gain</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in _medSaleDtailsList)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <button class="btn" @onclick="()=>DeleteClick(item)">
+                                                    <img src="./img/trash-fill.svg" style="color:red;" />
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @item.medicineName
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <UXC_Number Id="qunId"
+                                                OnChanged="()=>onBuyDiscpountQuentityChange(item)"
+                                                @bind-Value="item.quentity"></UXC_Number>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <UXC_Amount Id="buyPId"
+                                                DecimalPoint="2"
+                                                OnChanged="()=>onBuyDiscpountQuentityChange(item)"
+                                                @bind-Value="item.sellPrice"
+                                                @key="@overAllRefreshKey"></UXC_Amount>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @item.avgBuyPrice
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <UXC_Amount Id="buyDId"
+                                                DecimalPoint="2"
+                                                OnChanged="()=>onBuyDiscpountQuentityChange(item)"
+                                                @bind-Value="item.discountPrice"
+                                                @key="@overAllRefreshKey"></UXC_Amount>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @item.actualPrice
+                                        </td>
+                                        <td>
+                                            @item.profitGain
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -81,28 +170,117 @@
 </div>
 
 @code {
+    private DateTime saledate = DateTime.UtcNow;
+    private string overAllRefreshKey = Guid.NewGuid().ToString();
     MedicineSale _medSale = new MedicineSale();
-    MedicineSaleDetails _medSaleDtails = new MedicineSaleDetails();
+    List<MedicineSaleDetails> _medSaleDtailsList = new List<MedicineSaleDetails>();
 
-    private List<Dropdown> _medicineNames = new List<Dropdown>();
-    private string _medicineNamesKey = Guid.NewGuid().ToString();
+    private List<Dropdown> _medNameList = new List<Dropdown>();
+    private string _medNameListKey = Guid.NewGuid().ToString();
+    private string DpMedId = "";
+    private string DpMedName = "";
 
     protected override async Task OnInitializedAsync()
     {
-        _medSale.salesManName = await _sessionData.getSession();
-        _medSale.saleDate = DateTime.UtcNow.ToString("MM-ddd-yyyy");
+        //_medSale.salesManName = await _sessionData.getSession();
+        _medSale.saleDate = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+        await BindCombo();
     }
 
     private async Task BindCombo()
     {
-        _medicineNames = await _operation.getDropDown<MedicineDetails>("medicineName");
-        _medicineNamesKey = Guid.NewGuid().ToString();
+        _medNameList = await _common.MedicineDropDown();
+        _medNameListKey = Guid.NewGuid().ToString();
     }
 
-    private async Task CleanFields()
+    private void CleanFields()
     {
         _medSale = new MedicineSale();
-        _medSaleDtails = new MedicineSaleDetails();
-        _medicineNamesKey = Guid.NewGuid().ToString();
+        _medSaleDtailsList = new List<MedicineSaleDetails>();
+        _medNameListKey = Guid.NewGuid().ToString();
+    }
+    private async Task AddRow()
+    {
+        if (DpMedId == "0" || string.IsNullOrEmpty(DpMedId))
+        {
+            _toastService.ShowError("Select A Medicine First");
+            return;
+        }
+        if (_medSaleDtailsList.Count > 0)
+        {
+            var lastData = _medSaleDtailsList[_medSaleDtailsList.Count - 1];
+            if (lastData.quentity == 0 || string.IsNullOrEmpty(lastData.quentity + ""))
+            {
+                _toastService.ShowError("Quentity Is Requried For " + lastData.medicineName);
+                return;
+            }
+            if (lastData.sellPrice == 0 || string.IsNullOrEmpty(lastData.sellPrice + ""))
+            {
+                _toastService.ShowError("Sale Price Is Requried For " + lastData.medicineName);
+                return;
+            }
+        }
+
+        var medPrice = await _operation.getInfoById<MedicinePrice>(DpMedId + "", "medId");
+        // var medStock = await _operation.getInfoById<stockAvailable>(DpMedId + "", "medId");
+        // if (medStock.remain == 0){
+        //     _toastService.ShowError("No Stock Availble for - " + DpMedName);
+        //     return;
+        // }
+
+        _medSaleDtailsList.Add(new MedicineSaleDetails
+            {
+                medicineid = Convert.ToInt32(DpMedId),
+                medicineName = DpMedName,
+                sellPrice = medPrice.price,
+                avgBuyPrice = medPrice.avgBuyPrice
+            });
+    }
+    private async Task dropDownSelect(string value)
+    {
+        DpMedName = value;
+        if (!string.IsNullOrEmpty(value))
+            await AddRow();
+
+        DpMedId = "";
+        _medNameListKey = Guid.NewGuid().ToString();
+    }
+    private void DeleteClick(MedicineSaleDetails item)
+    {
+        _medSaleDtailsList.Remove(item);
+    }
+    private void onBuyDiscpountQuentityChange(MedicineSaleDetails item)
+    {
+        // var medStock = _operation.getInfoById<stockAvailable>(DpMedId + "", "medId");
+        // if (medStock.remain < item.quentity)
+        // {
+        //     _toastService.ShowError("Only (" + medStock.remain + ") Pis Medicine Remain For -" +DpMedName);
+        //     item.quentity = medStock.remain;
+        // }
+        foreach (var data in _medSaleDtailsList)
+        {
+            if (data == item)
+            {
+                data.actualPrice = (item.sellPrice * item.quentity) - item.discountPrice;
+                data.profitGain = data.actualPrice - (item.avgBuyPrice * item.quentity);
+                break;
+            }
+        }
+        UpdateTotalPrice();
+    }
+    private void UpdateTotalPrice()
+    {
+        _medSale.totalSaleQuentity = 0;
+        _medSale.totalSalePrice = 0;
+        _medSale.totalDiscountPrice = 0;
+        _medSale.totalProfitGain = 0;
+
+        foreach (var data in _medSaleDtailsList)
+        {
+            _medSale.totalSaleQuentity = _medSale.totalSaleQuentity + data.quentity;
+            _medSale.totalSalePrice = _medSale.totalSalePrice + data.actualPrice;
+            _medSale.totalDiscountPrice = _medSale.totalDiscountPrice + data.discountPrice;
+            _medSale.totalProfitGain = _medSale.totalProfitGain + data.profitGain;
+        }
     }
 }
